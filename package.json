@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "express": "nodemon server/index.js"
+    "express": "nodemon server/index.js",
+    "loadAdmin": "node scripts/loadAdmin.js"
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "mongoose": "^5.10.9",

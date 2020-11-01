@@ -30,7 +30,7 @@ const aboutSchema = new mongoose.Schema({
 
 const adminSchema = new mongoose.Schema({
   username: String,
-  password: String
+  hash: String
 });
 
 module.exports.productSchema = productSchema;

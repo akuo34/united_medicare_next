@@ -9,6 +9,7 @@ module.exports = {
   postAbout: (images, about, phone, email) => aboutItem.create({ images, about, phone, email }),
   putAbout: (request, _id) => aboutItem.findOneAndUpdate({ _id }, request),
   deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
-  getAdmin: (username) => adminItem.find({ username }),
-  postAdmin: (username, password) => adminItem.create({ username, password })
+  getAdmin: (username) => adminItem.findOne({ username }),
+  postAdmin: (username, hash) => adminItem.create({ username, hash }),
+  deleteAllAdmin: () => adminItem.deleteMany({})
 }

@@ -1,11 +1,12 @@
+import model from '../../database/model';
+
 export default async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).end()
+  const { username, password } = req.body;
 
-  // exchange the DID from Magic for some user data
-  // TODO
-
-  // Author a couple of cookies to persist a users session
-  // TODO
-
-  res.end()
+  if (req.method === 'POST') {
+    const { username, password } = req.body;
+    model.postAbout(images, about, phone, email)
+    .then(() => res.status(201).send('posted to database'))
+    .catch(err => res.status(400).send(err));
+  }
 }
