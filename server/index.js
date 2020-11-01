@@ -1,19 +1,19 @@
-const express = require('express');
-const next = require('next');
+// const express = require('express');
+// const next = require('next');
 const path = require('path');
-const bodyParser = require('body-parser');
-const router = require('./router');
-const morgan = require('morgan');
-const cors = require('cors');
-const basicAuth = require('express-basic-auth');
-const cookieParser = require('cookie-parser');
+// const bodyParser = require('body-parser');
+// const router = require('./router');
+// const morgan = require('morgan');
+// const cors = require('cors');
+// const basicAuth = require('express-basic-auth');
+// const cookieParser = require('cookie-parser');
 
-const PORT = process.env.PORT || 8000;
-const dev = process.env.NODE_DEV !== 'production'
-const nextApp = next({ dev });
-const handle = nextApp.getRequestHandler()
+// const PORT = process.env.PORT || 9000;
+// const dev = process.env.NODE_DEV !== 'production'
+// const nextApp = next({ dev });
+// const handle = nextApp.getRequestHandler()
 
-nextApp.prepare().then(() => {
+// nextApp.prepare().then(() => {
   const app = express();
   
   app.use(bodyParser.json());
@@ -64,7 +64,7 @@ nextApp.prepare().then(() => {
   // app.get('/*', (req, res) => {
   //   res.sendFile(path.join(__dirname, '../build/index.html'))
   // });
-})
+// })
 
 
 

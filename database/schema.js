@@ -28,5 +28,11 @@ const aboutSchema = new mongoose.Schema({
   email: String
 });
 
+const adminSchema = new mongoose.Schema({
+  username: String,
+  password: String
+});
+
 module.exports.productSchema = productSchema;
 module.exports.aboutSchema = aboutSchema;
+module.exports.adminSchema = adminSchema;

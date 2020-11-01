@@ -1,10 +1,23 @@
 import '../styles/globals.css'
 import Link from 'next/link'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 
 const MyApp = ({ Component, pageProps }) => {
 
   const [showToolbar, setShowToolbar] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    Axios
+      .get('http://localhost:9000/read-cookie')
+      .then(response => {
+        console.log(response.data);
+        setUser(response.data.screen)
+      })
+      .catch(err => console.error(err));
+
+  }, []);
 
   const toolbarHandler = (products) => {
     if (products) {
@@ -58,7 +71,7 @@ const MyApp = ({ Component, pageProps }) => {
           </div>
         </div>
       </div>
-      <Component {...pageProps} />
+      <Component {...pageProps} user={user} setUser={setUser}/>
     </div>
   )
 }

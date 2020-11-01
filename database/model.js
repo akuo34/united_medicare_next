@@ -1,4 +1,4 @@
-const { productItem, aboutItem } = require('./');
+const { productItem, aboutItem, adminItem } = require('./');
 
 module.exports = {
   getProducts: () => productItem.find().sort([['category', 1]]),
@@ -8,5 +8,7 @@ module.exports = {
   getAbout: () => aboutItem.find(),
   postAbout: (images, about, phone, email) => aboutItem.create({ images, about, phone, email }),
   putAbout: (request, _id) => aboutItem.findOneAndUpdate({ _id }, request),
-  deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id })
+  deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
+  getAdmin: (username) => adminItem.find({ username }),
+  postAdmin: (username, password) => adminItem.create({ username, password })
 }
