@@ -17,4 +17,10 @@ export default (req, res) => {
       .then(() => res.status(200).send('deleted from database'))
       .catch(err => res.status(400).send(err));
   }
+
+  if (req.method === 'GET') {
+    model.getProducts(_id)
+      .then(response => res.status(200).send(response))
+      .catch(err => res.status(404).send(err));
+  }
 }

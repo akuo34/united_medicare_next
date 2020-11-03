@@ -1,35 +1,31 @@
-import { useRouter } from 'next/router';
-import { Magic } from 'magic-sdk';
+import { useAuth } from '../../contexts/auth';
 
 const Login = () => {
-  const router = useRouter();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const { elements } = e.target;
-
-    const did = await new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY)
-      .auth
-      .loginWithMagicLink({ email: elements.email.value })
-
-    const authRequest = await fetch('/api/login', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${did}` }
-    })
-
-    if (authRequest.ok) {
-      router.push('/admin/console')
-    } else {
-      router.push('/');
-    }
-  }
+  const { login } = useAuth();
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email</label>
-      <input name="email" type="email" />
-      <button>Log in</button>
-    </form>
+    <div className="container-login">
+      <h4>Sign in</h4>
+      <form id="form-login" onSubmit={login}>
+        <input
+          className="input-login"
+          name="login"
+          placeholder="E.g: johnDorian123@gmail.com"
+          id="login"
+        />
+        <input
+          className="input-login"
+          type="password"
+          name="password"
+          placeholder="Your password"
+          id="password"
+        />
+        <div className="container-landing-button">
+          <button type="submit">Sign In</button>
+        </div>
+      </form>
+    </div>
   )
 }
 

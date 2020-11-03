@@ -8,10 +8,10 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => console.log('United Medi-care connected'));
 
-const productItem = mongoose.model('ProductItem', schema.productSchema);
-const aboutItem = mongoose.model('AboutItem', schema.aboutSchema);
-const adminItem = mongoose.model('AdminItem', schema.adminSchema);
+const ProductItem = mongoose.models.ProductItem || mongoose.model('ProductItem', schema.productSchema);
+const AboutItem = mongoose.models.AboutItem || mongoose.model('AboutItem', schema.aboutSchema);
+const AdminItem = mongoose.models.AdminItem || mongoose.model('AdminItem', schema.adminSchema);
 
-module.exports.productItem = productItem;
-module.exports.aboutItem = aboutItem;
-module.exports.adminItem = adminItem;
+module.exports.ProductItem = ProductItem;
+module.exports.AboutItem = AboutItem;
+module.exports.AdminItem = AdminItem;

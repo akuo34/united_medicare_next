@@ -1,15 +1,16 @@
-const { productItem, aboutItem, adminItem } = require('./');
+const { ProductItem, AboutItem, AdminItem } = require('./');
 
 module.exports = {
-  getProducts: () => productItem.find().sort([['category', 1]]),
-  postProduct: (images, name, prodId, description, category, features, specs, downloads) => productItem.create({ images, name, prodId, description, category, features, specs, downloads }),
-  putProduct: (request, _id) => productItem.findOneAndUpdate({ _id }, request),
-  deleteProduct: (_id) => productItem.findOneAndDelete({ _id }),
-  getAbout: () => aboutItem.find(),
-  postAbout: (images, about, phone, email) => aboutItem.create({ images, about, phone, email }),
-  putAbout: (request, _id) => aboutItem.findOneAndUpdate({ _id }, request),
-  deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
-  getAdmin: (username) => adminItem.findOne({ username }),
-  postAdmin: (username, hash) => adminItem.create({ username, hash }),
-  deleteAllAdmin: () => adminItem.deleteMany({})
+  getProducts: () => ProductItem.find().sort([['category', 1]]),
+  getOneProduct: () => ProductItem.findOne({ _id }),
+  postProduct: (images, name, prodId, description, category, features, specs, downloads) => ProductItem.create({ images, name, prodId, description, category, features, specs, downloads }),
+  putProduct: (request, _id) => ProductItem.findOneAndUpdate({ _id }, request),
+  deleteProduct: (_id) => ProductItem.findOneAndDelete({ _id }),
+  getAbout: () => AboutItem.find(),
+  postAbout: (images, about, phone, email) => AboutItem.create({ images, about, phone, email }),
+  putAbout: (request, _id) => AboutItem.findOneAndUpdate({ _id }, request),
+  deleteAbout: (_id) => AboutItem.findOneAndDelete({ _id }),
+  getAdmin: (username) => AdminItem.findOne({ username }),
+  postAdmin: (username, hash) => AdminItem.create({ username, hash }),
+  deleteAllAdmin: () => AdminItem.deleteMany({})
 }

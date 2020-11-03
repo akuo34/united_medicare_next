@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-// import { storage } from './firebase/firebase.js';
-import Axios from 'axios';
 import PulseLoader from 'react-spinners/PulseLoader';
+import Axios from 'axios';
+import AdminHeader from '../../components/adminHeader';
+import { storage } from '../../firebase/firebase';
+import { useAuth } from '../../contexts/auth';
 
-const AboutManager = () => {
+const AboutManager = (props) => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [about, setAbout] = useState({});
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [showToolbar, setShowToolbar] = useState(false);
-  const [user, setUser] = useState(null);
+  const { logout } = useAuth();
 
   useEffect(() => {
     getAbout();
-    Axios
-    .get('http://localhost:9000/read-cookie')
-    .then(response => {
-      console.log(response.data);
-      setUser(response.data.screen)
-    })
-    .catch(err => console.error(err));
   }, []);
 
   const getAbout = () => {
     Axios
-      .get('/admin/api/about')
+      .get('/api/about')
       .then(response => {
         if (response.data.length && index > response.data[0].images.length - 1 && index > 0) {
           setIndex(index - 1);
@@ -81,7 +74,7 @@ const AboutManager = () => {
           let request = { images, about, phone, email };
 
           Axios
-            .post('/admin/api/about', request)
+            .post('/api/about', request)
             .then(response => {
               getAbout();
               setImageAsFile('');
@@ -127,7 +120,7 @@ const AboutManager = () => {
           images.push({ filename, fireBaseUrl });
 
           Axios
-            .put(`/admin/api/about/${_id}`, { images })
+            .put(`/api/about/${_id}`, { images })
             .then(response => {
               getAbout();
               setImageAsFile('');
@@ -162,7 +155,7 @@ const AboutManager = () => {
     images.splice(index, 1);
 
     Axios
-      .put(`/admin/api/about/${_id}`, { images })
+      .put(`/api/about/${_id}`, { images })
       .then(response => {
         getAbout();
 
@@ -189,7 +182,7 @@ const AboutManager = () => {
     }
 
     Axios
-      .put(`/admin/api/about/${_id}`, request)
+      .put(`/api/about/${_id}`, request)
       .then(response => {
         getAbout();
       })
@@ -202,7 +195,7 @@ const AboutManager = () => {
     let _id = about._id;
 
     Axios
-      .delete(`/admin/api/about/${_id}`)
+      .delete(`/api/about/${_id}`)
       .then(response => {
 
         about.images.forEach(image => {
@@ -216,120 +209,75 @@ const AboutManager = () => {
       .catch(err => console.error(err));
   }
 
-  const returnHome = () => {
-    window.location = '/';
-  }
-
-  const logout = () => {
-    Axios
-      .get('http://localhost:9000/clear-cookie')
-      .then(() => {
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
-        console.log('logged out as admin')
-      })
-      .catch(err => console.error(err));
-  }
-
-  const toolbarHandler = () => {
-    if (showToolbar) {
-      setShowToolbar(false);
-    } else {
-      setShowToolbar(true);
-    }
-  }
-
   return (
     <div>
-    <div className="container-page">
-    <div className="toolbar-main admin">
-      <div className="header-company">
-        <span onClick={returnHome} className="link trademark">United Medi-Care Inc.</span>
-      </div>
-      <div className="container-links">
-        <Link href="/admin/about">
-          <a className="link">About</a>
-        </Link>
-        <Link href="/admin">
-          <a className="link">Products</a>
-        </Link>
-        <span onClick={logout} className="link">Logout</span>
-      </div>
-      <img onClick={toolbarHandler} className="hamburger" src="/hamburger_button_white.svg" alt="hamburger button" />
-    </div>
-    </div>
-    <div className={showToolbar ? "container-links-small-device" : "container-links-small-device hidden"}>
-      <Link onClick={toolbarHandler} className="link dropdown" href="/admin/about">About</Link>
-      <Link onClick={toolbarHandler} className="link dropdown" href="/admin">Products</Link>
-      <span onClick={logout} className="link dropdown">Log out</span>
-    </div>
-
-    <div className="page-admin">
-      <h2>About Manager</h2>
-      <div className={loading ? "container-loader" : "container-loader hidden"}>
-        <PulseLoader
-          size={30}
-          color={"#363636"}
-          loading={loading}
-        />
-      </div>
-      {
-        Object.keys(about).length === 0 ?
-          <form id="form-about" className="form-admin" onSubmit={handleFireBaseUpload}>
-            <h4>Create new profile</h4>
-            <textarea className="input-products" name="about" placeholder="About" style={{ "height": "100px" }} />
-            <input className="input-products" type="email" name="email" placeholder="johndorian123@gmail.com"></input>
-            <input className="input-products" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
-            <div className="input-products row" style={{ "flexWrap": "wrap" }}>
-              <input
-                style={{ "marginBottom": "10px" }}
-                type="file"
-                onChange={handleImageAsFile}
-              />
-              <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Upload Photo</button>
-            </div>
-          </form>
-          :
-          <div className="row-about">
-            <div className="column" style={{ "maxWidth": "90vw" }}>
-              <div className="container-image-about-admin">
-                <img className="image-about" src={about.images.length ? about.images[index].fireBaseUrl : "/placeholder-image.png"} alt="about"></img>
-              </div>
-              <form id="form-about-add-photo" onSubmit={addPhoto} className="row">
+      <AdminHeader toolbarHandler={props.toolbarHandler} showToolbar={props.showToolbar} logout={logout} />
+      <div className="page-admin">
+        <h2>About Manager</h2>
+        <div className={loading ? "container-loader" : "container-loader hidden"}>
+          <PulseLoader
+            size={30}
+            color={"#363636"}
+            loading={loading}
+          />
+        </div>
+        {
+          Object.keys(about).length === 0 ?
+            <form id="form-about" className="form-admin" onSubmit={handleFireBaseUpload}>
+              <h4>Create new profile</h4>
+              <textarea className="input-products" name="about" placeholder="About" style={{ "height": "100px" }} />
+              <input className="input-products" type="email" name="email" placeholder="johndorian123@gmail.com"></input>
+              <input className="input-products" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
+              <div className="input-products row" style={{ "flexWrap": "wrap" }}>
                 <input
-                  style={{ "marginBottom": "10px", "width": "70%" }}
+                  style={{ "marginBottom": "10px" }}
                   type="file"
                   onChange={handleImageAsFile}
                 />
-                <button type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Add Photo</button>
-              </form>
-              <div className="row" style={{ "marginBottom": "20px" }}>
-                <button onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
-                <button onClick={nextPhoto}>Next</button>
-                <span style={{ "justifySelf": "center", "margin": "0 auto" }}>{about.images.length ? (index + 1) + '/' + about.images.length + ' images' : '0/0 images'}</span>
-                {
-                  about.images.length ?
-                    <button onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
-                }
+                <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Upload Photo</button>
+              </div>
+            </form>
+            :
+            <div className="row-about">
+              <div className="column" style={{ "maxWidth": "90vw" }}>
+                <div className="container-image-about-admin">
+                  <img className="image-about" src={about.images.length ? about.images[index].fireBaseUrl : "/placeholder-image.png"} alt="about"></img>
+                </div>
+                <form id="form-about-add-photo" onSubmit={addPhoto} className="row">
+                  <input
+                    style={{ "marginBottom": "10px", "width": "70%" }}
+                    type="file"
+                    onChange={handleImageAsFile}
+                  />
+                  <button type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Add Photo</button>
+                </form>
+                <div className="row" style={{ "marginBottom": "20px" }}>
+                  <button onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
+                  <button onClick={nextPhoto}>Next</button>
+                  <span style={{ "justifySelf": "center", "margin": "0 auto" }}>{about.images.length ? (index + 1) + '/' + about.images.length + ' images' : '0/0 images'}</span>
+                  {
+                    about.images.length ?
+                      <button onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
+                  }
+                </div>
+              </div>
+              <div className="column">
+                <p className="paragraph-about">
+                  <b>About: </b>{about.about}
+                </p>
+                <p><b>Email: </b>{about.email}</p>
+                <p><b>Phone: </b>{about.phone}</p>
+                <form id="form-about-edit" onSubmit={editAboutHandler} style={{ "display": "flex", "flexDirection": "column" }}>
+                  <textarea style={{ "marginBottom": "10px", "height": "100px", "fontFamily": "Arial" }} name="about" placeholder="About" />
+                  <input style={{ "marginBottom": "10px" }} type="email" name="email" placeholder="johndorian123@gmail.com"></input>
+                  <input style={{ "marginBottom": "10px" }} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
+                  <button style={{ "margin": "0 0 10px auto", "alignSelf": "flexEnd" }} type="submit">Submit Changes</button>
+                </form>
+                <button style={{ "margin": "0 0 20px auto" }} onClick={deleteHandler}>Delete</button>
               </div>
             </div>
-            <div className="column">
-              <p className="paragraph-about">
-                <b>About: </b>{about.about}
-              </p>
-              <p><b>Email: </b>{about.email}</p>
-              <p><b>Phone: </b>{about.phone}</p>
-              <form id="form-about-edit" onSubmit={editAboutHandler} style={{ "display": "flex", "flexDirection": "column" }}>
-                <textarea style={{ "marginBottom": "10px", "height": "100px", "fontFamily": "Arial" }} name="about" placeholder="About" />
-                <input style={{ "marginBottom": "10px" }} type="email" name="email" placeholder="johndorian123@gmail.com"></input>
-                <input style={{ "marginBottom": "10px" }} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
-                <button style={{ "margin": "0 0 10px auto", "alignSelf": "flexEnd" }} type="submit">Submit Changes</button>
-              </form>
-              <button style={{ "margin": "0 0 20px auto" }} onClick={deleteHandler}>Delete</button>
-            </div>
-          </div>
-      }
-    </div>
+        }
+      </div>
     </div>
   )
 }
