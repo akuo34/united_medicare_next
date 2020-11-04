@@ -3,19 +3,12 @@ import bcrypt from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
-import Cors from 'cors';
-const cors = Cors({
-  methods: ['GET', 'HEAD'],
-})
-import useMiddleware from '../../middleware/useMiddleware';
 
 export default async (req, res) => {
-  await useMiddleware(req, res, cors);
   if (req.method === 'POST') {
     const { username, password } = req.body;
-    
     const response = await model.getAdmin(username);
-    console.log(response);
+
     if (response) {
       bcrypt.compare(password, response.hash, (err, result) => {
         if (!err && result) {

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "loadAdmin": "node scripts/loadAdmin.js",
-    "instance": "SSH -i united_medicare.pem ubuntu@ec2-52-53-187-9.us-west-1.compute.amazonaws.com"
+    "instance": "SSH -i united_medicare.pem ubuntu@ec2-52-8-24-75.us-west-1.compute.amazonaws.com"
   },
   "dependencies": {
     "axios": "^0.20.0",
