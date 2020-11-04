@@ -7,7 +7,8 @@
     "build": "next build && npm run loadAdmin",
     "start": "next start",
     "express": "nodemon server/index.js",
-    "loadAdmin": "node scripts/loadAdmin.js"
+    "loadAdmin": "node scripts/loadAdmin.js",
+    "instance": "SSH -i united_medicare.pem ubuntu@ec2-52-53-187-9.us-west-1.compute.amazonaws.com"
   },
   "dependencies": {
     "axios": "^0.20.0",
