@@ -59,7 +59,7 @@ const ProductDetails = () => {
       <div className="row-about">
         <div className="column">
           <div className="container-image-about-admin" style={{ "alignSelf": "flexStart", "margin": "0 0 20px 0" }}>
-            <img onClick={modalHandler} className="image-about" src={product && product.images.length ? product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="product-view" />
+            <img onClick={modalHandler} className="image-product" src={product && product.images.length ? product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="product-view" />
           </div>
           <div className="row" style={{ "flexWrap": "wrap", "justifyContent": "spaceEvenly" }}>
             {
@@ -67,7 +67,7 @@ const ProductDetails = () => {
                 product.images.map((image, index) => {
                   return (
                     <div style={{ "height": "75px", "width": "75px", "margin": "0 auto 20px auto" }}>
-                      <img data-index={index} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "objectFit": "cover" }} src={image.fireBaseUrl} alt="product_thumb" />
+                      <img data-index={index} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "objectFit": "cover", "cursor": "pointer" }} src={image.fireBaseUrl} alt="product_thumb" />
                     </div>
                   )
                 }) : null

@@ -10,10 +10,11 @@ export default async (req, res) => {
     const { username, password } = req.body;
     
     const response = await model.getAdmin(username);
+    console.log(response);
     if (response) {
       bcrypt.compare(password, response.hash, (err, result) => {
         if (!err && result) {
-          const claims = { sub: response._id, username: response.username, role: response.role };
+          const claims = { sub: response._id, username: response.username, admin: true };
           const jwt = sign(claims, process.env.JWT_SECRET, { expiresIn: '2h' });
           res.status(200).json({ authToken: jwt });
         } else {
@@ -28,10 +29,11 @@ export default async (req, res) => {
   if (req.method === 'GET') {
     const token = req.headers.authorization.split(' ')[1];
     verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      console.log(decoded);
       if (err) {
         res.status(401).send('Invalid token')
       } else {
-        res.status(200).json({ user: decoded.username, role: decoded.role })
+        res.status(200).json({ user: decoded.username, admin: decoded.admin })
       }
     }); 
   }

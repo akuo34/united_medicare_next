@@ -140,6 +140,7 @@ p {
   height: 40px;
   width: 180px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 /* Admin Landing */
@@ -314,6 +315,14 @@ p {
   overflow: hidden;
 }
 
+.image-product {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  margin: 0 auto auto auto;
+  cursor: pointer;
+}
+
 .image-grid {
   max-width: min(300px, 90vw);
   min-height: 120px;
@@ -321,6 +330,7 @@ p {
   height: calc((100vh - (10vh + 2.8vw + 220px))/2);
   object-fit: cover;
   margin: 0 0 10px 0;
+  cursor: pointer;
 }
 
 .product-header-price {
@@ -330,6 +340,7 @@ p {
 
 .product-name {
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .modal {

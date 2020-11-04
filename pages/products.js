@@ -5,10 +5,6 @@ import Axios from 'axios';
 const Products = () => {
 
   const [products, setProducts] = useState([]);
-  const [showProduct, setShowProduct] = useState(null);
-  const [index, setIndex] = useState(0);
-  // const [showModal, setShowModal] = useState(false);
-  // const [animation, setAnimation] = useState('modal-hidden');
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(null);
@@ -27,15 +23,6 @@ const Products = () => {
           }
         })
         setCategories(catcopy);
-        let split = window.location.href.split('/');
-        if (split[split.length - 1] !== 'products') {
-          let id = split[split.length - 1];
-
-          let product = response.data.filter(product => product._id === id)[0];
-          setShowProduct(product);
-        } else {
-          setShowProduct(null);
-        }
       })
       .catch(err => console.error(err));
 
@@ -46,19 +33,6 @@ const Products = () => {
 
     Router.push(`/products/${_id}`);
   }
-
-  // const modalHandler = (e) => {
-  //   if (showModal) {
-  //     setAnimation('fadeout');
-  //     setAnimation('modal-hidden');
-  //     setShowModal(false);
-  //     document.body.style.overflow = "auto";
-  //   } else {
-  //     setAnimation('active');
-  //     setShowModal(true);
-  //     document.body.style.overflow = "hidden";
-  //   }
-  // }
 
   const changeCategory = (e) => {
     let category = e.target.value;
@@ -74,10 +48,6 @@ const Products = () => {
 
   return (
     <div className="page-admin">
-      {/* <div onClick={modalHandler} className={animation === "active" ? "modal active" : `modal ${animation}`} >
-        <img onClick={modalHandler} className={animation === "active" ? "modal-image active" : `modal-image ${animation}`} src={showProduct && showProduct.images.length ? showProduct.images[index].fireBaseUrl : null} alt="modal_image" />
-        <div className={animation === "active" ? "modal-background" : `modal-background ${animation}`}></div>
-      </div> */}
       <h2 className="buffer">{currentCategory === null ? "All products" : currentCategory}</h2>
       {
         <select id="selector-category-client" onChange={changeCategory}>

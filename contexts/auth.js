@@ -8,7 +8,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
+  const [admin, setAdmin] = useState(null);
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const api = Axios.create({
@@ -31,11 +31,12 @@ export const AuthProvider = ({ children }) => {
         try {
           const signedUser = await api.get('/api/login');
           setUser(signedUser.data.user);
-          setRole(signedUser.data.role);
-          if (window.location.pathname.includes('admin') && signedUser.data.role !== 'admin') {
+          setAdmin(signedUser.data.admin);
+
+          if (window.location.pathname.includes('admin') && !signedUser.data.admin) {
             Router.push('/admin/login');
           }
-          if ((window.location.pathname === '/admin/login' || window.location.pathname === '/admin') && signedUser.data.role === 'admin') {
+          if ((window.location.pathname === '/admin/login' || window.location.pathname === '/admin') && signedUser.data.admin) {
             Router.push('/admin/products');
           }
           setLoadingScreen(false);
@@ -73,7 +74,7 @@ export const AuthProvider = ({ children }) => {
 
       const signedUser = await api.get('/api/login');
       setUser(signedUser.data.user);
-      setRole(signedUser.data.role);
+      setAdmin(signedUser.data.admin);
 
       Router.push('/admin/products');
     } catch (err) {
