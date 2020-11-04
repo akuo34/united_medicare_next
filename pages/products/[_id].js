@@ -10,12 +10,11 @@ const ProductDetails = () => {
   const [animation, setAnimation] = useState('modal-hidden');
   const router = useRouter();
   const { _id } = router.query;
-  // console.log('here', _id );
   
   useEffect(() => {
     if (_id) {
       Axios
-        .get(`/api/products/${_id}`)
+        .get(`http://52.8.24.75:3000/api/products/${_id}`)
         .then(response => {
 
           console.log('id', _id);

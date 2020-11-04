@@ -11,7 +11,7 @@ const Products = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/products')
+      .get('http://52.8.24.75:3000/api/products')
       .then(response => {
         setProducts(response.data);
         setSortedProducts(response.data);

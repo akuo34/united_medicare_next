@@ -26,7 +26,7 @@ const ProductManager = (props) => {
 
   const getProducts = (id, last) => {
     Axios
-      .get('/api/products')
+      .get('http://52.8.24.75:3000/api/products')
       .then(response => {
         let copy = { ...indexes }
         let categories = {};
@@ -106,7 +106,7 @@ const ProductManager = (props) => {
           let request = { images, name, prodId, description, category, index };
 
           Axios
-            .post('/api/products', request)
+            .post('http://52.8.24.75:3000/api/products', request)
             .then(response => {
               getProducts();
               setImageAsFile('');
@@ -146,7 +146,7 @@ const ProductManager = (props) => {
     }
 
     Axios
-      .put(`/api/products/${_id}`, request)
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, request)
       .then(response => {
         getProducts();
       })
@@ -159,7 +159,7 @@ const ProductManager = (props) => {
     const _id = e.target.dataset.id;
 
     Axios
-      .delete(`/api/products/${_id}`)
+      .delete(`http://52.8.24.75:3000/api/products/${_id}`)
       .then(response => {
 
         let product = products.filter(product => product._id === _id)[0];
@@ -192,7 +192,7 @@ const ProductManager = (props) => {
     features.push(feature);
 
     Axios
-      .put(`/api/products/${_id}`, { features })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { features })
       .then(response => {
         getProducts();
         setShowFeatures(_id);
@@ -210,7 +210,7 @@ const ProductManager = (props) => {
     features.splice(index, 1);
 
     Axios
-      .put(`/api/products/${_id}`, { features })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { features })
       .then(response => {
         getProducts();
       })
@@ -237,7 +237,7 @@ const ProductManager = (props) => {
     specs.push(spec);
 
     Axios
-      .put(`/api/products/${_id}`, { specs })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { specs })
       .then(response => {
         getProducts();
         setShowSpecs(_id);
@@ -255,7 +255,7 @@ const ProductManager = (props) => {
     specs.splice(index, 1);
 
     Axios
-      .put(`/api/products/${_id}`, { specs })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { specs })
       .then(response => {
         getProducts();
       })
@@ -305,7 +305,7 @@ const ProductManager = (props) => {
           images.push({ filename, fireBaseUrl });
 
           Axios
-            .put(`/api/products/${_id}`, { images })
+            .put(`http://52.8.24.75:3000/api/products/${_id}`, { images })
             .then(response => {
               getProducts(_id, true);
               setImageAsFile('');
@@ -348,7 +348,7 @@ const ProductManager = (props) => {
     images.splice(index, 1);
 
     Axios
-      .put(`/api/products/${_id}`, { images })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { images })
       .then(response => {
         getProducts();
 
@@ -395,7 +395,7 @@ const ProductManager = (props) => {
           downloads.push({ title, fireBaseUrl, filename });
 
           Axios
-            .put(`/api/products/${_id}`, { downloads })
+            .put(`http://52.8.24.75:3000/api/products/${_id}`, { downloads })
             .then(response => {
               getProducts();
               setShowDownloads(_id);
@@ -429,7 +429,7 @@ const ProductManager = (props) => {
     downloads.splice(index, 1);
 
     Axios
-      .put(`/api/products/${_id}`, { downloads })
+      .put(`http://52.8.24.75:3000/api/products/${_id}`, { downloads })
       .then(response => {
 
         getProducts();

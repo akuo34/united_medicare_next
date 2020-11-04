@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     Axios
-      .get('/api/about')
+      .get('http://52.8.24.75:3000/api/about')
       .then(response => setAbout(response.data[0]))
       .catch(err => console.error(err));
 
