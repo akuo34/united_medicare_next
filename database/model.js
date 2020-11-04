@@ -2,7 +2,7 @@ const { ProductItem, AboutItem, AdminItem } = require('./');
 
 module.exports = {
   getProducts: () => ProductItem.find().sort([['category', 1]]),
-  getOneProduct: () => ProductItem.findOne({ _id }),
+  getOneProduct: (_id) => ProductItem.findOne({ _id }),
   postProduct: (images, name, prodId, description, category, features, specs, downloads) => ProductItem.create({ images, name, prodId, description, category, features, specs, downloads }),
   putProduct: (request, _id) => ProductItem.findOneAndUpdate({ _id }, request),
   deleteProduct: (_id) => ProductItem.findOneAndDelete({ _id }),

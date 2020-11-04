@@ -27,7 +27,7 @@ const AdminHeader = (props) => {
         <Link href="/admin/products">
           <a onClick={props.toolbarHandler} className="link dropdown">Products</a>
         </Link>
-        <span onClick={props.logout} className="link dropdown">Log out</span>
+        <span onClick={() => {props.logout(); props.toolbarHandler()}} className="link dropdown">Log out</span>
       </div>
     </div>
   )

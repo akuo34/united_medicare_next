@@ -262,7 +262,7 @@ const AboutManager = (props) => {
                 </div>
               </div>
               <div className="column">
-                <p className="paragraph-about">
+                <p className="paragraph-about-admin">
                   <b>About: </b>{about.about}
                 </p>
                 <p><b>Email: </b>{about.email}</p>

@@ -259,6 +259,11 @@ p {
   margin: 0 auto;
 }
 
+.column-about {
+  display: flex;
+  flex-direction: column;
+}
+
 .container-image-about {
   max-height: min(400px, 60vw);
   max-width: min(450px, 90vw);
@@ -283,6 +288,11 @@ p {
 }
 
 .paragraph-about {
+  width: min(450px, 90vw);
+  flex-wrap: wrap;
+}
+
+.paragraph-about-admin {
   width: min(450px, 90vw);
   flex-wrap: wrap;
 }
@@ -490,6 +500,12 @@ p {
     object-fit: cover;
     align-self: center;
     margin: 0 auto 10px auto;
+  }
+
+  .paragraph-about {
+    /* width: min(450px, 90vw); */
+    width: 90vw;
+    flex-wrap: wrap;
   }
 }
 

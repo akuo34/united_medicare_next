@@ -98,7 +98,7 @@ const Products = () => {
           sortedProducts.map((product, index) => {
             return (
               <div className="product-grid">
-                <img className="image-grid" data-id={product._id} onClick={viewProduct} src={product.images[0].fireBaseUrl} alt="product" />
+                <img className="image-grid" data-id={product._id} onClick={viewProduct} src={product.images.length ? product.images[0].fireBaseUrl : '/placeholder-image.png'} alt="product" />
                 <div className="product-header-price">
                   <h4 data-id={product._id} onClick={viewProduct} className="product-name">{product.name}</h4>
                 </div>

@@ -17,9 +17,9 @@ export default function Home() {
     <div className="page-admin">
       <h2>About the company</h2>
       <div className="row-about">
-        <div className="column">
-          {
-            about ?
+          { about && about.images.length ?
+        <div className="column-about">
+          { about && about.images.length ?
               about.images.map(image => {
                 return (
                   <div className="container-image-about">
@@ -30,8 +30,9 @@ export default function Home() {
                   </div>
                 )
               }) : null
+            }
+        </div> : null
           }
-        </div>
         <p className="paragraph-about" style={{ "lineHeight": "26px" }}>
           {
             about ?

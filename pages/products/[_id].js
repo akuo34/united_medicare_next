@@ -10,16 +10,21 @@ const ProductDetails = () => {
   const [animation, setAnimation] = useState('modal-hidden');
   const router = useRouter();
   const { _id } = router.query;
-
+  // console.log('here', _id );
+  
   useEffect(() => {
-    Axios
-      .get(`/api/products/${_id}`)
-      .then(response => {
-        console.log(response.data[0]);
-        setProduct(response.data[0]);
-      })
-      .catch(err => console.error(err));
-  }, [])
+    if (_id) {
+      Axios
+        .get(`/api/products/${_id}`)
+        .then(response => {
+
+          console.log('id', _id);
+          console.log('here',response.data);
+          setProduct(response.data);
+        })
+        .catch(err => console.error(err));
+    }
+  }, [_id])
 
   const modalHandler = (e) => {
     if (showModal) {
@@ -47,14 +52,14 @@ const ProductDetails = () => {
   return (
     <div className="page-admin">
       <div onClick={modalHandler} className={animation === "active" ? "modal active" : `modal ${animation}`} >
-        <img onClick={modalHandler} className={animation === "active" ? "modal-image active" : `modal-image ${animation}`} src={product && product.images.length ? product.images[index].fireBaseUrl : null} alt="modal_image" />
+        <img onClick={modalHandler} className={animation === "active" ? "modal-image active" : `modal-image ${animation}`} src={product && product.images.length ? product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="modal_image" />
         <div className={animation === "active" ? "modal-background" : `modal-background ${animation}`}></div>
       </div>
       <h2>Product Details</h2>
       <div className="row-about">
         <div className="column">
           <div className="container-image-about-admin" style={{ "alignSelf": "flexStart", "margin": "0 0 20px 0" }}>
-            <img onClick={modalHandler} className="image-about" src={product ? product.images[index].fireBaseUrl : null} alt="product-view" />
+            <img onClick={modalHandler} className="image-about" src={product && product.images.length ? product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="product-view" />
           </div>
           <div className="row" style={{ "flexWrap": "wrap", "justifyContent": "spaceEvenly" }}>
             {

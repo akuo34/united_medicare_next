@@ -4,6 +4,7 @@ import Axios from 'axios';
 import AdminHeader from '../../components/adminHeader';
 import { storage } from '../../firebase/firebase';
 import { useAuth } from '../../contexts/auth';
+import LoadingScreen from '../../components/loadingScreen';
 
 const ProductManager = (props) => {
 
@@ -17,7 +18,7 @@ const ProductManager = (props) => {
   const [indexes, setIndexes] = useState({});
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
-  const { logout } = useAuth();
+  const { logout, loadingScreen } = useAuth();
 
   useEffect(() => {
     getProducts();
@@ -28,22 +29,27 @@ const ProductManager = (props) => {
       .get('/api/products')
       .then(response => {
         let copy = { ...indexes }
-        let catcopy = { ...categories };
+        let categories = {};
 
+        // for every product
         response.data.forEach(product => {
-          if (catcopy[product.category] === undefined) {
-            catcopy[product.category] = 1;
+          // if category is not on the current list of categories, add to list
+          if (categories[product.category] === undefined) {
+            categories[product.category] = 1;
           }
+          // if product is not listed in the current list of indexes, add to list
           if (copy[product._id] === undefined) {
             copy[product._id] = 0;
+            // if current product index is higher than index of last image, decrement index
           } else if (copy[product._id] > product.images.length - 1 && copy[product._id] !== 0) {
             copy[product._id]--;
+
           } else if (last && id === product._id) {
             copy[id] = product.images.length - 1;
           }
         })
 
-        setCategories(catcopy);
+        setCategories(categories);
         setIndexes(copy)
         setProducts(response.data);
 
@@ -448,6 +454,8 @@ const ProductManager = (props) => {
   return (
     <div>
       <AdminHeader toolbarHandler={props.toolbarHandler} showToolbar={props.showToolbar} logout={logout}/>
+      {
+        loadingScreen ? <LoadingScreen /> :
       <div className="page-admin">
         <h2>Products Manager</h2>
         <div className={loading ? "container-loader" : "container-loader hidden"}>
@@ -679,6 +687,7 @@ const ProductManager = (props) => {
           }) : null
         }
       </div>
+      }
     </div>
   )
 }

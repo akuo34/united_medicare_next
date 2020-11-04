@@ -19,7 +19,7 @@ export default (req, res) => {
   }
 
   if (req.method === 'GET') {
-    model.getProducts(_id)
+    model.getOneProduct(_id)
       .then(response => res.status(200).send(response))
       .catch(err => res.status(404).send(err));
   }
