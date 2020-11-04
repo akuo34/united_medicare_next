@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const api = Axios.create({
-    baseURL: 'https://united-medicare-next.vercel.app/',
+    baseURL: 'localhost:3000',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
