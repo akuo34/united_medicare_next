@@ -1,6 +1,12 @@
 import model from '../../database/model';
+import Cors from 'cors';
+const cors = Cors({
+  methods: ['GET', 'HEAD'],
+})
+import useMiddleware from '../../middleware/useMiddleware';
 
-export default (req, res) => {
+export default async (req, res) => {
+  await useMiddleware(req, res, cors);
   if (req.method === 'GET') {
     model.getProducts()
       .then(response => res.status(200).send(response))
