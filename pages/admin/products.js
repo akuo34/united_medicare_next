@@ -18,7 +18,7 @@ const ProductManager = (props) => {
   const [indexes, setIndexes] = useState({});
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
-  const { logout, loadingScreen } = useAuth();
+  const { logout, admin } = useAuth();
 
   useEffect(() => {
     getProducts();
@@ -453,240 +453,240 @@ const ProductManager = (props) => {
 
   return (
     <div>
-      <AdminHeader toolbarHandler={props.toolbarHandler} showToolbar={props.showToolbar} logout={logout}/>
+      <AdminHeader toolbarHandler={props.toolbarHandler} showToolbar={props.showToolbar} logout={logout} />
       {
-        loadingScreen ? <LoadingScreen /> :
-      <div className="page-admin">
-        <h2>Products Manager</h2>
-        <div className={loading ? "container-loader" : "container-loader hidden"}>
-          <PulseLoader
-            size={30}
-            color={"#363636"}
-            loading={loading}
-          />
-        </div>
-        <form id="form-products" className="form-admin" onSubmit={handleFireBaseUpload}>
-          <h4>Create new item</h4>
-          <input className="input-products" type="text" name="name" placeholder="Product Name" />
-          <textarea className="input-products" name="description" placeholder="Description" style={{ "height": "60px" }} />
-          <div className="input-products row">
-            <input style={{ "width": "40%" }} type="text" name="prodId" placeholder="Product ID" />
-            <div className="column" style={{ "width": "40%", "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
-              <input name="category" type="text" list="categories" placeholder="Category"></input>
-              <datalist id="categories">
-                {
-                  Object.keys(categories).map(category => {
-                    return (
-                      <option>{category}</option>
-                    )
-                  })
-                }
-              </datalist>
+        !admin ? <LoadingScreen /> :
+          <div className="page-admin">
+            <h2>Products Manager</h2>
+            <div className={loading ? "container-loader" : "container-loader hidden"}>
+              <PulseLoader
+                size={30}
+                color={"#363636"}
+                loading={loading}
+              />
             </div>
-          </div>
-          <div className="input-products row" style={{ "flexWrap": "wrap" }}>
-            <input
-              style={{ "marginBottom": "10px" }}
-              type="file"
-              onChange={handleImageAsFile}
-            />
-            <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Upload Product</button>
-          </div>
-        </form>
-        <select id="selector-category" onChange={changeCategory}>
-          <option>All categories</option>
-          {
-            Object.keys(categories).map(category => {
-              return (
-                <option>
-                  {category}
-                </option>
-              )
-            })
-          }
-        </select>
-        {sortedProducts.length ?
-          sortedProducts.map((product, index) => {
-            return (
-              <div className="row-products">
-                <div style={{ "display": "flex", "flexDirection": "column", "width": "min(90vw, 300px)" }}>
-                  <div className="container-image-products">
-                    <img className="image-products" src={product.images.length ? product.images[indexes[product._id]].fireBaseUrl : "/placeholder-image.png"} alt="product"></img>
-                  </div>
-                  <form data-id={product._id} id={`form-add-photo-${product._id}`} onSubmit={addPhoto} className="row" style={{ "maxWidth": "min(90vw, 300px" }}>
-                    <input
-                      style={{ "marginBottom": "10px", "width": "70%" }}
-                      type="file"
-                      onChange={handleImageAsFile}
-                    />
-                    <button type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Add Photo</button>
-                  </form>
-                  <div className="row" style={{ "marginBottom": "20px" }}>
-                    <button data-id={product._id} onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
-                    <button data-id={product._id} onClick={nextPhoto}>Next</button>
-                    <span style={{ "justifySelf": "center", "margin": "0 auto" }}>{product.images.length ? (indexes[product._id] + 1) + '/' + product.images.length + ' images' : '0/0 images'}</span>
+            <form id="form-products" className="form-admin" onSubmit={handleFireBaseUpload}>
+              <h4>Create new item</h4>
+              <input className="input-products" type="text" name="name" placeholder="Product Name" />
+              <textarea className="input-products" name="description" placeholder="Description" style={{ "height": "60px" }} />
+              <div className="input-products row">
+                <input style={{ "width": "40%" }} type="text" name="prodId" placeholder="Product ID" />
+                <div className="column" style={{ "width": "40%", "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
+                  <input name="category" type="text" list="categories" placeholder="Category"></input>
+                  <datalist id="categories">
                     {
-                      product.images.length ?
-                        <button data-id={product._id} onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
+                      Object.keys(categories).map(category => {
+                        return (
+                          <option>{category}</option>
+                        )
+                      })
                     }
-                  </div>
+                  </datalist>
                 </div>
-                <div className="container-details">
-                  <div className="details-products">
-                    <p><b>Product Name: </b>{product.name}</p>
-                    <p><b>Product ID: </b>{product.prodId}</p>
-                    <p><b>Description: </b>{product.description}</p>
-                    <p><b>Category: </b>{product.category}</p>
-                    <div style={{ "display": "flex" }}>
-                      <div style={{ "margin": "0 0 20px auto", "alignSelf": "flexEnd" }}>
-                        <button data-id={product._id} onClick={showEditHandler} style={{ "marginRight": "10px" }}>Edit</button>
-                        <button data-id={product._id} onClick={deleteHandler}>Delete</button>
+              </div>
+              <div className="input-products row" style={{ "flexWrap": "wrap" }}>
+                <input
+                  style={{ "marginBottom": "10px" }}
+                  type="file"
+                  onChange={handleImageAsFile}
+                />
+                <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Upload Product</button>
+              </div>
+            </form>
+            <select id="selector-category" onChange={changeCategory}>
+              <option>All categories</option>
+              {
+                Object.keys(categories).map(category => {
+                  return (
+                    <option>
+                      {category}
+                    </option>
+                  )
+                })
+              }
+            </select>
+            {sortedProducts.length ?
+              sortedProducts.map((product, index) => {
+                return (
+                  <div className="row-products">
+                    <div style={{ "display": "flex", "flexDirection": "column", "width": "min(90vw, 300px)" }}>
+                      <div className="container-image-products">
+                        <img className="image-products" src={product.images.length ? product.images[indexes[product._id]].fireBaseUrl : "/placeholder-image.png"} alt="product"></img>
+                      </div>
+                      <form data-id={product._id} id={`form-add-photo-${product._id}`} onSubmit={addPhoto} className="row" style={{ "maxWidth": "min(90vw, 300px" }}>
+                        <input
+                          style={{ "marginBottom": "10px", "width": "70%" }}
+                          type="file"
+                          onChange={handleImageAsFile}
+                        />
+                        <button type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Add Photo</button>
+                      </form>
+                      <div className="row" style={{ "marginBottom": "20px" }}>
+                        <button data-id={product._id} onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
+                        <button data-id={product._id} onClick={nextPhoto}>Next</button>
+                        <span style={{ "justifySelf": "center", "margin": "0 auto" }}>{product.images.length ? (indexes[product._id] + 1) + '/' + product.images.length + ' images' : '0/0 images'}</span>
+                        {
+                          product.images.length ?
+                            <button data-id={product._id} onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
+                        }
                       </div>
                     </div>
-                    {
-                      showEdit === product._id ?
-                        <form id={`form-products-edit-${product._id}`} data-id={product._id} onSubmit={editProductHandler} style={{ "display": "flex", "flexDirection": "column" }}>
-                          <input style={{ "marginBottom": "10px" }} type="text" name="name" placeholder="Product Name" />
-                          <input style={{ "marginBottom": "10px" }} type="text" name="prodId" placeholder="Product ID" />
-                          <textarea style={{ "marginBottom": "10px", "height": "60px", "fontFamily": "Arial" }} name="description" placeholder="Description" />
-                          <input style={{ "marginBottom": "10px" }} name="category" type="text" list="categories" placeholder="Category"></input>
-                          <datalist id="categories">
+                    <div className="container-details">
+                      <div className="details-products">
+                        <p><b>Product Name: </b>{product.name}</p>
+                        <p><b>Product ID: </b>{product.prodId}</p>
+                        <p><b>Description: </b>{product.description}</p>
+                        <p><b>Category: </b>{product.category}</p>
+                        <div style={{ "display": "flex" }}>
+                          <div style={{ "margin": "0 0 20px auto", "alignSelf": "flexEnd" }}>
+                            <button data-id={product._id} onClick={showEditHandler} style={{ "marginRight": "10px" }}>Edit</button>
+                            <button data-id={product._id} onClick={deleteHandler}>Delete</button>
+                          </div>
+                        </div>
+                        {
+                          showEdit === product._id ?
+                            <form id={`form-products-edit-${product._id}`} data-id={product._id} onSubmit={editProductHandler} style={{ "display": "flex", "flexDirection": "column" }}>
+                              <input style={{ "marginBottom": "10px" }} type="text" name="name" placeholder="Product Name" />
+                              <input style={{ "marginBottom": "10px" }} type="text" name="prodId" placeholder="Product ID" />
+                              <textarea style={{ "marginBottom": "10px", "height": "60px", "fontFamily": "Arial" }} name="description" placeholder="Description" />
+                              <input style={{ "marginBottom": "10px" }} name="category" type="text" list="categories" placeholder="Category"></input>
+                              <datalist id="categories">
+                                {
+                                  Object.keys(categories).map(category => {
+                                    return (
+                                      <option>{category}</option>
+                                    )
+                                  })
+                                }
+                              </datalist>
+                              <button type="submit" style={{ "margin": "0 0 20px auto", "alignSelf": "flexEnd" }}>Submit Changes</button>
+                            </form> :
+                            null
+                        }
+                      </div>
+                      <div className="details-products">
+                        <div style={{ "marginBottom": "10px", "display": "flex" }}>
+                          <div>
+                            <b>Features: </b>{product.features.length === 1 ? '1 feature' : product.features.length + ' features'}
+                          </div>
+                          <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
                             {
-                              Object.keys(categories).map(category => {
+                              showFeatures !== product._id && product.features.length ?
+                                <button data-id={product._id} onClick={showFeaturesHandler}>Show</button> : null
+                            }
+                            {
+                              showFeatures === product._id && product.features.length ?
+                                <button data-id={product._id} onClick={showFeaturesHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
+                            }
+                          </div>
+                        </div>
+                        {product.features.length && showFeatures === product._id ?
+                          <ul style={{ "marginTop": "0" }}>
+                            {
+                              product.features.map((feature, index) => {
                                 return (
-                                  <option>{category}</option>
+                                  <div style={{ "display": "flex", "marginBottom": "10px" }}>
+                                    <li style={{ "width": "80%" }}>{feature}</li>
+                                    <button data-id={product._id} data-index={index} onClick={deleteFeature} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
+                                  </div>
                                 )
                               })
                             }
-                          </datalist>
-                          <button type="submit" style={{ "margin": "0 0 20px auto", "alignSelf": "flexEnd" }}>Submit Changes</button>
-                        </form> :
-                        null
-                    }
-                  </div>
-                  <div className="details-products">
-                    <div style={{ "marginBottom": "10px", "display": "flex" }}>
-                      <div>
-                        <b>Features: </b>{product.features.length === 1 ? '1 feature' : product.features.length + ' features'}
-                      </div>
-                      <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
-                        {
-                          showFeatures !== product._id && product.features.length ?
-                            <button data-id={product._id} onClick={showFeaturesHandler}>Show</button> : null
+                          </ul> : null
                         }
                         {
-                          showFeatures === product._id && product.features.length ?
-                            <button data-id={product._id} onClick={showFeaturesHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
+                          product.features.length === 0 || showFeatures === product._id ?
+                            <form id={`form-features-${product._id}`} onSubmit={addFeature} data-id={product._id} style={{ "display": "flex", "width": "100%", "marginBottom": "10px", "marginTop": "10px" }}>
+                              <input style={{ "width": "80%" }} type="text" name="feature" placeholder="Feature" required></input>
+                              <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
+                            </form> : null
                         }
-                      </div>
-                    </div>
-                    {product.features.length && showFeatures === product._id ?
-                      <ul style={{ "marginTop": "0" }}>
-                        {
-                          product.features.map((feature, index) => {
-                            return (
-                              <div style={{ "display": "flex", "marginBottom": "10px" }}>
-                                <li style={{ "width": "80%" }}>{feature}</li>
-                                <button data-id={product._id} data-index={index} onClick={deleteFeature} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
-                              </div>
-                            )
-                          })
-                        }
-                      </ul> : null
-                    }
-                    {
-                      product.features.length === 0 || showFeatures === product._id ?
-                        <form id={`form-features-${product._id}`} onSubmit={addFeature} data-id={product._id} style={{ "display": "flex", "width": "100%", "marginBottom": "10px", "marginTop": "10px" }}>
-                          <input style={{ "width": "80%" }} type="text" name="feature" placeholder="Feature" required></input>
-                          <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
-                        </form> : null
-                    }
-                    <div style={{ "marginBottom": "10px", "marginTop": "10px", "display": "flex" }}>
-                      <div>
-                        <b>Specs: </b>{product.specs.length === 1 ? '1 spec' : product.specs.length + ' specs'}
-                      </div>
-                      <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
-                        {
-                          showSpecs !== product._id && product.specs.length ?
-                            <button data-id={product._id} onClick={showSpecsHandler}>Show</button> : null
-                        }
-                        {
-                          showSpecs === product._id && product.specs.length ?
-                            <button data-id={product._id} onClick={showSpecsHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
-                        }
-                      </div>
-                    </div>
-                    {product.specs.length && showSpecs === product._id ?
-                      <ul style={{ "marginTop": "0" }}>
-                        {
-                          product.specs.map((spec, index) => {
-                            return (
-                              <div style={{ "display": "flex", "marginBottom": "10px" }}>
-                                <li style={{ "width": "80%" }}>{spec}</li>
-                                <button data-id={product._id} data-index={index} onClick={deleteSpec} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
-                              </div>
-                            )
-                          })
-                        }
-                      </ul> : null
-                    }
-                    {
-                      product.specs.length === 0 || showSpecs === product._id ?
-                        <form id={`form-specs-${product._id}`} onSubmit={addSpec} data-id={product._id} style={{ "display": "flex", "width": "100%", "marginBottom": "20px", "marginTop": "10px" }}>
-                          <input style={{ "width": "80%" }} type="text" name="spec" placeholder="Spec" required></input>
-                          <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
-                        </form> : null
-                    }
-                    <div style={{ "marginBottom": "10px", "marginTop": "10px", "display": "flex" }}>
-                      <div>
-                        <b>Downloads: </b>{product.downloads.length === 1 ? '1 download' : product.downloads.length + ' downloads'}
-                      </div>
-                      <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
-                        {
-                          showDownloads !== product._id && product.downloads.length ?
-                            <button data-id={product._id} onClick={showDownloadsHandler}>Show</button> : null
-                        }
-                        {
-                          showDownloads === product._id && product.downloads.length ?
-                            <button data-id={product._id} onClick={showDownloadsHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
-                        }
-                      </div>
-                    </div>
-                    {product.downloads.length && showDownloads === product._id ?
-                      <ul style={{ "marginTop": "0" }}>
-                        {
-                          product.downloads.map((download, index) => {
-                            return (
-                              <div style={{ "display": "flex", "marginBottom": "10px" }}>
-                                <li style={{ "width": "80%" }}>
-                                  <a href={download.fireBaseUrl} target="_blank">
-                                    {download.title}
-                                  </a>
-                                </li>
-                                <button data-id={product._id} data-index={index} data-prodindex={index} onClick={deleteDownload} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
-                              </div>
-                            )
-                          })
-                        }
-                      </ul> : null
-                    }
-                    {
-                      product.downloads.length === 0 || showDownloads === product._id ?
-                        <form id={`form-downloads-${product._id}`} data-id={product._id} data-index={index} className="column" onSubmit={addDownload} style={{ "display": "flex", "width": "100%", "marginBottom": "20px", "marginTop": "10px" }}>
-                          <input style={{ "marginBottom": "10px" }} type="text" placeholder="Title" name="title" required />
-                          <div className="row" style={{ "width": "100%" }}>
-                            <input type="file" onChange={handleImageAsFile} style={{ "width": "60%" }} />
-                            <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
+                        <div style={{ "marginBottom": "10px", "marginTop": "10px", "display": "flex" }}>
+                          <div>
+                            <b>Specs: </b>{product.specs.length === 1 ? '1 spec' : product.specs.length + ' specs'}
                           </div>
-                        </form> : null
-                    }
+                          <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
+                            {
+                              showSpecs !== product._id && product.specs.length ?
+                                <button data-id={product._id} onClick={showSpecsHandler}>Show</button> : null
+                            }
+                            {
+                              showSpecs === product._id && product.specs.length ?
+                                <button data-id={product._id} onClick={showSpecsHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
+                            }
+                          </div>
+                        </div>
+                        {product.specs.length && showSpecs === product._id ?
+                          <ul style={{ "marginTop": "0" }}>
+                            {
+                              product.specs.map((spec, index) => {
+                                return (
+                                  <div style={{ "display": "flex", "marginBottom": "10px" }}>
+                                    <li style={{ "width": "80%" }}>{spec}</li>
+                                    <button data-id={product._id} data-index={index} onClick={deleteSpec} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
+                                  </div>
+                                )
+                              })
+                            }
+                          </ul> : null
+                        }
+                        {
+                          product.specs.length === 0 || showSpecs === product._id ?
+                            <form id={`form-specs-${product._id}`} onSubmit={addSpec} data-id={product._id} style={{ "display": "flex", "width": "100%", "marginBottom": "20px", "marginTop": "10px" }}>
+                              <input style={{ "width": "80%" }} type="text" name="spec" placeholder="Spec" required></input>
+                              <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
+                            </form> : null
+                        }
+                        <div style={{ "marginBottom": "10px", "marginTop": "10px", "display": "flex" }}>
+                          <div>
+                            <b>Downloads: </b>{product.downloads.length === 1 ? '1 download' : product.downloads.length + ' downloads'}
+                          </div>
+                          <div style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>
+                            {
+                              showDownloads !== product._id && product.downloads.length ?
+                                <button data-id={product._id} onClick={showDownloadsHandler}>Show</button> : null
+                            }
+                            {
+                              showDownloads === product._id && product.downloads.length ?
+                                <button data-id={product._id} onClick={showDownloadsHandler} style={{ "marginLeft": "10px" }}>Hide</button> : null
+                            }
+                          </div>
+                        </div>
+                        {product.downloads.length && showDownloads === product._id ?
+                          <ul style={{ "marginTop": "0" }}>
+                            {
+                              product.downloads.map((download, index) => {
+                                return (
+                                  <div style={{ "display": "flex", "marginBottom": "10px" }}>
+                                    <li style={{ "width": "80%" }}>
+                                      <a href={download.fireBaseUrl} target="_blank">
+                                        {download.title}
+                                      </a>
+                                    </li>
+                                    <button data-id={product._id} data-index={index} data-prodindex={index} onClick={deleteDownload} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Delete</button>
+                                  </div>
+                                )
+                              })
+                            }
+                          </ul> : null
+                        }
+                        {
+                          product.downloads.length === 0 || showDownloads === product._id ?
+                            <form id={`form-downloads-${product._id}`} data-id={product._id} data-index={index} className="column" onSubmit={addDownload} style={{ "display": "flex", "width": "100%", "marginBottom": "20px", "marginTop": "10px" }}>
+                              <input style={{ "marginBottom": "10px" }} type="text" placeholder="Title" name="title" required />
+                              <div className="row" style={{ "width": "100%" }}>
+                                <input type="file" onChange={handleImageAsFile} style={{ "width": "60%" }} />
+                                <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }} type="submit">Add</button>
+                              </div>
+                            </form> : null
+                        }
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )
-          }) : null
-        }
-      </div>
+                )
+              }) : null
+            }
+          </div>
       }
     </div>
   )

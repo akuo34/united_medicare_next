@@ -90,11 +90,11 @@ export const AuthProvider = ({ children }) => {
     Router.push('/admin/login');
   }
 
-  if (loadingScreen) {
-    return <LoadingScreen />
-  }
+  // if (loadingScreen) {
+  //   return <LoadingScreen />
+  // }
   return (
-    <AuthContext.Provider value={{ login, user, logout, loadingScreen }}>
+    <AuthContext.Provider value={{ login, user, logout, admin }}>
       { children }
     </AuthContext.Provider>
   )
