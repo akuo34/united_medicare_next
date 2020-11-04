@@ -13,7 +13,7 @@ export default async (req, res) => {
     if (response) {
       bcrypt.compare(password, response.hash, (err, result) => {
         if (!err && result) {
-          const claims = { sub: response._id, username: response.username };
+          const claims = { sub: response._id, username: response.username, role: response.role };
           const jwt = sign(claims, process.env.JWT_SECRET, { expiresIn: '2h' });
           res.status(200).json({ authToken: jwt });
         } else {
@@ -31,7 +31,7 @@ export default async (req, res) => {
       if (err) {
         res.status(401).send('Invalid token')
       } else {
-        res.status(200).json({ user: decoded.username })
+        res.status(200).json({ user: decoded.username, role: decoded.role })
       }
     }); 
   }

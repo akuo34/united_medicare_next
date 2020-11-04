@@ -11,6 +11,6 @@ module.exports = {
   putAbout: (request, _id) => AboutItem.findOneAndUpdate({ _id }, request),
   deleteAbout: (_id) => AboutItem.findOneAndDelete({ _id }),
   getAdmin: (username) => AdminItem.findOne({ username }),
-  postAdmin: (username, hash) => AdminItem.create({ username, hash }),
+  postAdmin: (username, hash, role) => AdminItem.create({ username, hash, role }),
   deleteAllAdmin: () => AdminItem.deleteMany({})
 }

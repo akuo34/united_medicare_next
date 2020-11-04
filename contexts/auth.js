@@ -8,6 +8,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const api = Axios.create({
@@ -22,26 +23,31 @@ export const AuthProvider = ({ children }) => {
     async function loadUserFromCookies() {
       const token = document.cookie.split('=')[1];
 
+      // if token exists
       if (token) {
         api.defaults.headers.authorization = `Bearer ${token}`;
 
+        // verify token
         try {
           const signedUser = await api.get('/api/login');
           setUser(signedUser.data.user);
-          if (window.location.pathname.includes('admin') && signedUser.data.user !== 'admin') {
+          setRole(signedUser.data.role);
+          if (window.location.pathname.includes('admin') && signedUser.data.role !== 'admin') {
             Router.push('/admin/login');
           }
-          if ((window.location.pathname === '/admin/login' || window.location.pathname === '/admin') && signedUser.data.user === 'admin') {
+          if ((window.location.pathname === '/admin/login' || window.location.pathname === '/admin') && signedUser.data.role === 'admin') {
             Router.push('/admin/products');
           }
           setLoadingScreen(false);
         } catch (err) {
+          // if token invalid and on a restricted admin page, push to login
           if (window.location.pathname.includes('admin')) {
             Router.push('/admin/login');
           }
           setLoadingScreen(false);
         }
       } else {
+        // if on restricted admin page, push to login
         if (window.location.pathname.includes('admin')) {
           Router.push('/admin/login');
         }
@@ -67,6 +73,7 @@ export const AuthProvider = ({ children }) => {
 
       const signedUser = await api.get('/api/login');
       setUser(signedUser.data.user);
+      setRole(signedUser.data.role);
 
       Router.push('/admin/products');
     } catch (err) {
