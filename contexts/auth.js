@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const api = Axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://united-medicare-next.vercel.app/',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -90,9 +90,6 @@ export const AuthProvider = ({ children }) => {
     Router.push('/admin/login');
   }
 
-  // if (loadingScreen) {
-  //   return <LoadingScreen />
-  // }
   return (
     <AuthContext.Provider value={{ login, user, logout, admin }}>
       { children }

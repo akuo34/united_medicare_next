@@ -73,7 +73,6 @@ p {
   flex-direction: column;
   align-items: center;
   position: relative;
-  /* min-height: 90vh; */
 }
 
 .toolbar-main {
