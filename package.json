@@ -23,6 +23,8 @@
     "path": "^0.12.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-spinners": "^0.9.0"
+    "react-slick": "^0.27.12",
+    "react-spinners": "^0.9.0",
+    "slick-carousel": "^1.8.1"
   }
 }

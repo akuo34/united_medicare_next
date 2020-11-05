@@ -332,6 +332,37 @@ p {
   cursor: pointer;
 }
 
+.slider {
+  width: min(450px, 90vw);
+}
+
+/* .slider .slick-list .slick-track .slick-slide {
+  display: flex;
+  align-items: center;
+} */
+
+.slider .slick-track .slick-slide {
+  display: flex;
+  align-items: center;
+}
+
+.slider .slick-slide {
+  height: calc(30px + 2vw);
+  margin: 0 10px;
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slider {
+  height: 80px;
+}
+
+.slider .slick-dots {
+  margin-bottom: calc(40px - 2vw);
+}
+
 .product-header-price {
   width: min(90vw, 320px);
   margin: 0 auto 10px 0;

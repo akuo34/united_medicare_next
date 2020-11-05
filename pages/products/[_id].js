@@ -1,6 +1,9 @@
 import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProductDetails = () => {
 
@@ -10,7 +13,7 @@ const ProductDetails = () => {
   const [animation, setAnimation] = useState('modal-hidden');
   const router = useRouter();
   const { _id } = router.query;
-  
+
   useEffect(() => {
     if (_id) {
       Axios
@@ -44,6 +47,15 @@ const ProductDetails = () => {
     setIndex(index);
   }
 
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    initialSlide: 0,
+  };
+
   return (
     <div className="page-admin">
       <div onClick={modalHandler} className={animation === "active" ? "modal active" : `modal ${animation}`} >
@@ -56,18 +68,18 @@ const ProductDetails = () => {
           <div className="container-image-about-admin" style={{ "alignSelf": "flexStart", "margin": "0 0 20px 0" }}>
             <img onClick={modalHandler} className="image-product" src={product && product.images.length ? product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="product-view" />
           </div>
-          <div className="row" style={{ "flexWrap": "wrap", "justifyContent": "spaceEvenly" }}>
+          <Slider {...settings} className="slider">
             {
               product ?
                 product.images.map((image, index) => {
                   return (
-                    <div style={{ "height": "75px", "width": "75px", "margin": "0 auto 20px auto" }}>
-                      <img data-index={index} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "objectFit": "cover", "cursor": "pointer" }} src={image.fireBaseUrl} alt="product_thumb" />
+                    <div>
+                      <img data-index={index} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "cursor": "pointer" }} src={image.fireBaseUrl} alt="product_thumb" />
                     </div>
                   )
                 }) : null
             }
-          </div>
+          </Slider>
         </div>
         <div className="column" style={{ "maxWidth": "90vw" }}>
           <p className="paragraph-about">
