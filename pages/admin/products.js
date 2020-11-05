@@ -344,6 +344,10 @@ const ProductManager = (props) => {
     let copy = { ...indexes };
     let images = products.filter(product => product._id === _id)[0].images;
     let index = copy[_id];
+    if (index === images.length - 1 && index > 0) {
+      copy[_id] = index - 1;
+      setIndexes(copy);
+    }
     let filename = images[index].filename;
     images.splice(index, 1);
 
