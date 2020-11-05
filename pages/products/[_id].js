@@ -14,7 +14,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (_id) {
       Axios
-        .get(`http://52.8.24.75:3000/api/products/${_id}`)
+        .get(`/api/products/${_id}`)
         .then(response => {
 
           console.log('id', _id);

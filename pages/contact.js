@@ -6,7 +6,7 @@ const Contact = () => {
 
   useEffect(() => {
     Axios
-      .get('http://52.8.24.75:3000/api/about')
+      .get('/api/about')
       .then(response => setAbout(response.data))
       .catch(err => console.error(err));
   }, [])
