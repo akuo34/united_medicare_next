@@ -27,7 +27,6 @@ export default async (req, res) => {
   if (req.method === 'GET') {
     const token = req.headers.authorization.split(' ')[1];
     verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      console.log(decoded);
       if (err) {
         res.status(401).send('Invalid token')
       } else {
