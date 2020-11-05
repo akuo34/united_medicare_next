@@ -81,6 +81,7 @@ p {
   height: 10vh;
   display: flex;
   position: fixed;
+  z-index: 5;
 }
 
 .header-company {
@@ -188,7 +189,7 @@ p {
 .admin {
   position: fixed;
   top: 0;
-  /* z-index: 1; */
+  z-index: 6;
 }
 
 .page-admin {
@@ -454,7 +455,7 @@ p {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 7;
 }
 
 .clickable-bg-hidden {
