@@ -16,9 +16,6 @@ const ProductDetails = () => {
       Axios
         .get(`/api/products/${_id}`)
         .then(response => {
-
-          console.log('id', _id);
-          console.log('here',response.data);
           setProduct(response.data);
         })
         .catch(err => console.error(err));
@@ -44,7 +41,6 @@ const ProductDetails = () => {
 
   const selectPhoto = (e) => {
     let index = parseInt(e.target.dataset.index);
-
     setIndex(index);
   }
 
