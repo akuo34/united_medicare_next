@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Axios from 'axios';
+import api from '../components/api';
 
 const AuthContext = createContext({});
 
@@ -8,15 +9,6 @@ export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
-  const [loadingScreen, setLoadingScreen] = useState(true);
-
-  const api = Axios.create({
-    baseURL: 'http://52.8.24.75:3000',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
 
   useEffect(() => {
     async function loadUserFromCookies() {
@@ -38,20 +30,17 @@ export const AuthProvider = ({ children }) => {
           if ((window.location.pathname === '/admin/login' || window.location.pathname === '/admin') && signedUser.data.admin) {
             Router.push('/admin/products');
           }
-          setLoadingScreen(false);
         } catch (err) {
           // if token invalid and on a restricted admin page, push to login
           if (window.location.pathname.includes('admin')) {
             Router.push('/admin/login');
           }
-          setLoadingScreen(false);
         }
       } else {
         // if on restricted admin page, push to login
         if (window.location.pathname.includes('admin')) {
           Router.push('/admin/login');
         }
-        setLoadingScreen(false);
       }
     }
 

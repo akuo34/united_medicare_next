@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const AdminHeader = (props) => {
   return (
-    <div style={{ "zIndex": "5" }}>
+    <div>
       <div className="toolbar-main admin">
         <div className="header-company">
           <Link href="/">
