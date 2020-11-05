@@ -1,7 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 import Axios from 'axios';
-import LoadingScreen from '../components/loadingScreen';
 
 const AuthContext = createContext({});
 
@@ -12,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [loadingScreen, setLoadingScreen] = useState(true);
 
   const api = Axios.create({
-    baseURL: 'http://52.8.24.75:3000',
+    baseURL: 'localhost:3000',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
         // verify token
         try {
-          const signedUser = await api.get('http://52.8.24.75:3000/api/login');
+          const signedUser = await api.get('/api/login');
           setUser(signedUser.data.user);
           setAdmin(signedUser.data.admin);
 
@@ -66,13 +65,13 @@ export const AuthProvider = ({ children }) => {
     const password = e.target.password.value;
 
     try {
-      const response = await Axios.post('http://52.8.24.75:3000/api/login', { username, password });
+      const response = await Axios.post('/api/login', { username, password });
       const token = response.data.authToken;
 
       document.cookie = `auth=${token}; path=/`;
       api.defaults.headers.authorization = `Bearer ${token}`;
 
-      const signedUser = await api.get('http://52.8.24.75:3000/api/login');
+      const signedUser = await api.get('/api/login');
       setUser(signedUser.data.user);
       setAdmin(signedUser.data.admin);
 
