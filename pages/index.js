@@ -37,7 +37,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      about: JSON.parse(JSON.stringify(response[0]))
+      about: response.length ? JSON.parse(JSON.stringify(response[0])) : null
     },
     revalidate: 10
   }
