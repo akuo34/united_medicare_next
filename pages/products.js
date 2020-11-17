@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
+import model from '../database/model.js';
 
 const Products = (props) => {
 
