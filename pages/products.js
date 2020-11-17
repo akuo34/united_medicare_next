@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
-import Axios from 'axios';
 
-const Products = () => {
+const Products = (props) => {
 
-  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(null);
 
   useEffect(() => {
-    Axios
-      .get('/api/products')
-      .then(response => {
-        setProducts(response.data);
-        setSortedProducts(response.data);
+    setSortedProducts(props.products);
 
-        let catcopy = { ...categories };
-        response.data.forEach(product => {
-          if (catcopy[product.category] === undefined) {
-            catcopy[product.category] = 1;
-          }
-        })
-        setCategories(catcopy);
-      })
-      .catch(err => console.error(err));
+    let catcopy = { ...categories };
+    props.products.forEach(product => {
+      if (catcopy[product.category] === undefined) {
+        catcopy[product.category] = 1;
+      }
+    })
+    setCategories(catcopy);
 
   }, []);
 
@@ -40,7 +32,7 @@ const Products = () => {
       setSortedProducts(products);
       setCurrentCategory(null);
     } else {
-      let sorted = products.filter(product => product.category === category);
+      let sorted = props.products.filter(product => product.category === category);
       setSortedProducts(sorted);
       setCurrentCategory(category)
     }
@@ -48,7 +40,7 @@ const Products = () => {
 
   return (
     <div className="page-admin">
-      <h2 className="buffer">{currentCategory === null ? "All products" : currentCategory}</h2>
+      <h2 className="buffer">{currentCategory === null ? "All Products" : currentCategory}</h2>
       {
         <select id="selector-category-client" onChange={changeCategory}>
           <option>All categories</option>
@@ -65,9 +57,9 @@ const Products = () => {
       }
       <div className="grid">
         {
-          sortedProducts.map((product, index) => {
+          sortedProducts.map((product, key) => {
             return (
-              <div className="product-grid">
+              <div key={key} className="product-grid">
                 <img className="image-grid" data-id={product._id} onClick={viewProduct} src={product.images.length ? product.images[0].fireBaseUrl : '/placeholder-image.png'} alt="product" />
                 <div className="product-header-price">
                   <h4 data-id={product._id} onClick={viewProduct} className="product-name">{product.name}</h4>
@@ -82,3 +74,14 @@ const Products = () => {
 }
 
 export default Products;
+
+export async function getStaticProps() {
+  let response = await model.getProducts();
+
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(response))
+    },
+    revalidate: 10
+  }
+}

@@ -90,7 +90,7 @@ const ProductDetails = () => {
           </p>
           <p className="paragraph-about" style={{ "display": "flex", "alignItems": "flexStart" }}>
             <b>Price: </b>
-            <button className="button-see-products" onClick={toContact}>Email for pricing</button>
+            <button className="button-see-products" onClick={toContact}>Get quotes</button>
           </p>
           <p className="paragraph-about">
             {product ? product.description : null}

@@ -13,7 +13,7 @@ const Contact = () => {
 
   return (
     <div className="page-admin">
-      <h2>Contact us</h2>
+      <h2>Contact Us</h2>
       {
         about.length ?
         <div className="container-contact">

@@ -4,15 +4,15 @@ export default function Home(props) {
 
   return (
     <div className="page-admin">
-      <h2>About the company</h2>
+      <h2>About the Company</h2>
       <div className="row-about">
         {
           props.about && props.about.images.length ?
             <div className="column-about">
               {
-                props.about.images.map(image => {
+                props.about.images.map((image, key) => {
                   return (
-                    <div className="container-image-about">
+                    <div key={key} className="container-image-about">
                       <img className="image-about" src={image.fireBaseUrl} alt="about" />
                     </div>
                   )
