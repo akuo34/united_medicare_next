@@ -1,45 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import model from '../database/model.js';
 
 export default function Home() {
-
-  const [about, setAbout] = useState(null);
-
-  useEffect(() => {
-    Axios
-      .get('/api/about')
-      .then(response => setAbout(response.data[0]))
-      .catch(err => console.error(err));
-
-  }, []);
 
   return (
     <div className="page-admin">
       <h2>About the company</h2>
       <div className="row-about">
-          { about && about.images.length ?
-        <div className="column-about">
-          { about && about.images.length ?
-              about.images.map(image => {
-                return (
-                  <div className="container-image-about">
-                    {
-                      about ?
-                        <img className="image-about" src={image.fireBaseUrl} alt="about" /> : null
-                    }
-                  </div>
-                )
-              }) : null
-            }
-        </div> : null
-          }
-        <p className="paragraph-about" style={{ "lineHeight": "26px" }}>
-          {
-            about ?
-              about.about : null
-          }
-        </p>
+        {
+          props.about && props.about.images.length ?
+            <div className="column-about">
+              {
+                props.about.images.map(image => {
+                  return (
+                    <div className="container-image-about">
+                      <img className="image-about" src={image.fireBaseUrl} alt="about" />
+                    </div>
+                  )
+                })
+
+              }
+            </div> : null
+        }
+        {
+          props.about && props.about.about ?
+            <p className="paragraph-about" style={{ "lineHeight": "26px" }}>
+              {props.about.about}
+            </p> : null
+        }
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  let response = await model.getAbout();
+
+  return {
+    props: {
+      about: JSON.parse(JSON.stringify(response[0]))
+    },
+    revalidate: 10
+  }
 }

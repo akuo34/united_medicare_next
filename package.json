@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3434",
     "build": "next build",
-    "start": "next start",
+    "start": "next start 3434",
     "loadAdmin": "node scripts/loadAdmin.js",
     "instance": "SSH -i united_medicare.pem ubuntu@ec2-52-8-24-75.us-west-1.compute.amazonaws.com"
   },
