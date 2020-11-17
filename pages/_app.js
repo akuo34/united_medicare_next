@@ -1,11 +1,16 @@
 import '../styles/globals.css'
 import Link from 'next/link'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider } from '../contexts/auth';
 
 const MyApp = ({ Component, pageProps }) => {
 
   const [showToolbar, setShowToolbar] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+  }, [])
 
   const toolbarHandler = () => {
     if (showToolbar) {
@@ -13,6 +18,19 @@ const MyApp = ({ Component, pageProps }) => {
     } else {
       setShowToolbar(true);
     }
+  }
+
+  const scrollHandler = () => {
+    setShowButton(false);
+
+    let isScrolling;
+    // Clear our timeout throughout the scroll
+    window.clearTimeout(isScrolling);
+
+    // Set a timeout to run after scrolling ends
+    isScrolling = setTimeout(function () {
+      setShowButton(true);
+    }, 66);
   }
 
   return (
@@ -57,6 +75,8 @@ const MyApp = ({ Component, pageProps }) => {
         <Component {...pageProps}
           showToolbar={showToolbar}
           toolbarHandler={toolbarHandler}
+          scrollHandler={scrollHandler}
+          showButton={showButton}
         />
       </AuthProvider>
     </div>

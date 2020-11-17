@@ -7,11 +7,11 @@ const Products = (props) => {
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(null);
-  const [showButton, setShowButton] = useState(true);
+  // const [showButton, setShowButton] = useState(true);
 
   useEffect(() => {
     setSortedProducts(props.products);
-    window.addEventListener('scroll', scrollHandler);
+    // window.addEventListener('scroll', scrollHandler);
 
     let catcopy = { ...categories };
     props.products.forEach(product => {
@@ -41,21 +41,18 @@ const Products = (props) => {
     }
   }
 
-  const scrollHandler = () => {
-    setShowButton(false);
+  // const scrollHandler = () => {
+  //   setShowButton(false);
 
-    let isScrolling;
-    // Clear our timeout throughout the scroll
-    window.clearTimeout(isScrolling);
+  //   let isScrolling;
+  //   // Clear our timeout throughout the scroll
+  //   window.clearTimeout(isScrolling);
 
-    // Set a timeout to run after scrolling ends
-    isScrolling = setTimeout(function () {
-      setShowButton(true);
-      // Run the callback
-      console.log('Scrolling has stopped.');
-
-    }, 66);
-  }
+  //   // Set a timeout to run after scrolling ends
+  //   isScrolling = setTimeout(function () {
+  //     setShowButton(true);
+  //   }, 66);
+  // }
 
   const toContact = () => {
     Router.push('/contact');
@@ -78,7 +75,7 @@ const Products = (props) => {
           }
         </select>
       }
-      <div className="grid" onScroll={scrollHandler} o>
+      <div className="grid" onScroll={props.scrollHandler} o>
         {
           sortedProducts.map((product, key) => {
             return (
@@ -92,7 +89,7 @@ const Products = (props) => {
           })
         }
       </div>
-      <button className={showButton ? "button-see-products-fixed active" : "button-see-products-fixed modal-hidden"} onClick={toContact}>Get quotes</button>
+      <button className={props.showButton ? "button-see-products-fixed active" : "button-see-products-fixed modal-hidden"} onClick={toContact}>Get quotes</button>
     </div>
   )
 }
