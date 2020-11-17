@@ -152,6 +152,21 @@ const ProductDetails = (props) => {
 
 export default ProductDetails;
 
+export async function getStaticPaths() {
+  let response = await model.getProducts();
+  let ids = [];
+  response.forEach(product => {
+    ids.push(product._id);
+  })
+
+  return {
+    paths: [
+      { params: { _id : ids } } // populate this array using an api call or so
+    ],
+    fallback: false
+  };
+}
+
 export async function getStaticProps({ params }) {
   let response = await model.getOneProduct(params._id);
 
