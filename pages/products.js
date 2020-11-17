@@ -7,9 +7,11 @@ const Products = (props) => {
   const [categories, setCategories] = useState({});
   const [sortedProducts, setSortedProducts] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(null);
+  const [showButton, setShowButton] = useState(true);
 
   useEffect(() => {
     setSortedProducts(props.products);
+    window.addEventListener('scroll', scrollHandler);
 
     let catcopy = { ...categories };
     props.products.forEach(product => {
@@ -39,6 +41,26 @@ const Products = (props) => {
     }
   }
 
+  const scrollHandler = () => {
+    setShowButton(false);
+
+    let isScrolling;
+    // Clear our timeout throughout the scroll
+    window.clearTimeout(isScrolling);
+
+    // Set a timeout to run after scrolling ends
+    isScrolling = setTimeout(function () {
+      setShowButton(true);
+      // Run the callback
+      console.log('Scrolling has stopped.');
+
+    }, 66);
+  }
+
+  const toContact = () => {
+    Router.push('/contact');
+  }
+
   return (
     <div className="page-admin">
       <h2 className="buffer">{currentCategory === null ? "All Products" : currentCategory}</h2>
@@ -56,7 +78,7 @@ const Products = (props) => {
           }
         </select>
       }
-      <div className="grid">
+      <div className="grid" onScroll={scrollHandler} o>
         {
           sortedProducts.map((product, key) => {
             return (
@@ -70,6 +92,7 @@ const Products = (props) => {
           })
         }
       </div>
+      <button className={showButton ? "button-see-products-fixed active" : "button-see-products-fixed modal-hidden"} onClick={toContact}>Get quotes</button>
     </div>
   )
 }

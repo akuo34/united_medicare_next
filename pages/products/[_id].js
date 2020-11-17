@@ -69,18 +69,20 @@ const ProductDetails = (props) => {
           <div className="container-image-about-admin" style={{ "alignSelf": "flexStart", "margin": "0 0 20px 0" }}>
             <img onClick={modalHandler} className="image-product" src={props.product && props.product.images.length ? props.product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="product-view" />
           </div>
-          <Slider {...settings} className="slider">
-            {
-              props.product ?
-                props.product.images.map((image, key) => {
-                  return (
-                    <div key={key}>
-                      <img data-index={index} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "cursor": "pointer" }} src={image.fireBaseUrl} alt="product_thumb" />
-                    </div>
-                  )
-                }) : null
-            }
-          </Slider>
+          {
+            props.product && props.product.images.length > 1 ?
+              <Slider {...settings} className="slider">
+                {
+                  props.product.images.map((image, key) => {
+                    return (
+                      <div key={key}>
+                        <img data-index={key} onClick={selectPhoto} style={{ "height": "100%", "width": "100%", "cursor": "pointer" }} src={image.fireBaseUrl} alt="product_thumb" />
+                      </div>
+                    )
+                  })
+                }
+              </Slider> : null
+          }
         </div>
         <div className="column" style={{ "maxWidth": "90vw" }}>
           <p className="paragraph-about">
@@ -96,36 +98,46 @@ const ProductDetails = (props) => {
           <p className="paragraph-about">
             {props.product ? props.product.description : null}
           </p>
-          <p className="paragraph-about" style={{ "marginBottom": "0" }}>
-            <b>Features: </b>
-          </p>
-          <ul className="paragraph-about">
-            {
-              props.product ?
-                props.product.features.map((feature, key) => {
-                  return (
-                    <li key={key} style={{ "width": "80%" }}>
-                      {feature}
-                    </li>
-                  )
-                }) : null
-            }
-          </ul>
-          <p className="paragraph-about" style={{ "marginBottom": "0" }}>
-            <b>Specifications: </b>
-          </p>
-          <ul className="paragraph-about">
-            {
-              props.product ?
-                props.product.specs.map((spec, key) => {
-                  return (
-                    <li key={key} style={{ "width": "80%" }}>
-                      {spec}
-                    </li>
-                  )
-                }) : null
-            }
-          </ul>
+          {
+            props.product && props.product.features.length ?
+              <div>
+                <p className="paragraph-about" style={{ "marginBottom": "0" }}>
+                  <b>Features: </b>
+                </p>
+                <ul className="paragraph-about">
+                  {
+                    props.product ?
+                      props.product.features.map((feature, key) => {
+                        return (
+                          <li key={key} style={{ "width": "80%" }}>
+                            {feature}
+                          </li>
+                        )
+                      }) : null
+                  }
+                </ul>
+              </div> : null
+          }
+          {
+            props.product && props.product.specs.length ?
+              <div>
+                <p className="paragraph-about" style={{ "marginBottom": "0" }}>
+                  <b>Specifications: </b>
+                </p>
+                <ul className="paragraph-about">
+                  {
+                    props.product ?
+                      props.product.specs.map((spec, key) => {
+                        return (
+                          <li key={key} style={{ "width": "80%" }}>
+                            {spec}
+                          </li>
+                        )
+                      }) : null
+                  }
+                </ul>
+              </div> : null
+          }
           {
             props.product && props.product.downloads.length ?
               <p className="paragraph-about" style={{ "marginBottom": "0" }}>
@@ -158,7 +170,7 @@ export async function getStaticPaths() {
   const paths = products.map(product => ({
     params: { _id: product._id.toString() }
   }));
- 
+
   return {
     paths,
     fallback: false

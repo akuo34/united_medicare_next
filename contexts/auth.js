@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }) => {
 
       Router.push('/admin/products');
     } catch (err) {
+      // console.log(err)
       alert(`Login failed: ${err.response.data}`);
     }
 
