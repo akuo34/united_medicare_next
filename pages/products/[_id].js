@@ -156,7 +156,7 @@ export async function getStaticPaths() {
   const products = await model.getProducts();
 
   const paths = products.map(product => ({
-    params: { _id: product._id }
+    params: { _id: product._id.toString() }
   }));
  
   return {
