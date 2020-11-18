@@ -4,7 +4,7 @@ const { publicRuntimeConfig } = getConfig();
 
 let urls = {
   development: 'http://localhost:3434',
-  production: 'http://52.8.24.75:3434'
+  production: 'http://unitedmedicareinc.com'
 }
 
 const api = Axios.create({
