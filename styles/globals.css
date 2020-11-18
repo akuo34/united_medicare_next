@@ -173,10 +173,8 @@ p {
 }
 
 .container-login {
-  /* position: absolute; */
   position: relative;
-  /* top: calc(50vh - 100px); */
-  /* left: calc(50vw - 150px); */
+  margin-top: calc(40vh - 100px);
   width: min(300px, 90vw);
   height: 200px;
   background-color: rgb(196, 193, 193);
@@ -184,7 +182,6 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
 }
 
 #form-login {
@@ -192,8 +189,8 @@ p {
 }
 
 .input-login {
-  margin-bottom: 20px;
-  width: 60%;
+  width: 80%;
+  margin: 0 auto 20px auto;
 }
 
 .toolbar-admin {
@@ -433,18 +430,42 @@ p {
   transition: all 0.35s ease;
 }
 
+.row-contact {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .container-contact {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   width: min(90vw, 300px);
-  height: 300px;
   background-color: rgb(236, 234, 234);
+  margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 .icon-contact {
-  height: 50px;
+  height: calc(30px + 0.5vw);
+  margin: 20px auto 10px auto;
+}
+
+.form-contact-client {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(450px, 90vw);
+  margin: 0 auto;
+}
+
+.input-contact {
+  margin: 0 auto 20px auto;
+  width: 100%;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #selector-category {

@@ -15,12 +15,11 @@ export default async (req, res) => {
         subject: subject,
         html: `
         <p> You have a message from ${name}.</p>
-        <h3>Contact Details</h3>
         <ul>
           <li>Email: ${email}</li>
           <li>Subject: ${subject}</li>
-          <li>Message: ${message}</li>
         </ul>
+        <p>${message}</p>
         `
       };
 
