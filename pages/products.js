@@ -33,7 +33,7 @@ const Products = (props) => {
   const changeCategory = (e) => {
     let category = e.target.value;
     if (category === "All categories") {
-      setSortedProducts(products);
+      setSortedProducts(props.products);
       setCurrentCategory(null);
     } else {
       let sorted = props.products.filter(product => product.category === category);
