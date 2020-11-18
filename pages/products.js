@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import model from '../database/model.js';
+import Head from 'next/head';
 
 const Products = (props) => {
 
@@ -60,6 +61,9 @@ const Products = (props) => {
 
   return (
     <div className="page-admin">
+      <Head>
+        <title>Products | United Medi-Care Inc.</title>
+      </Head>
       <h2 className="buffer">{currentCategory === null ? "All Products" : currentCategory}</h2>
       {
         <select id="selector-category-client" onChange={changeCategory}>

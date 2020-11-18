@@ -1,9 +1,13 @@
 import model from '../database/model.js';
+import Head from 'next/head';
 
 export default function Home(props) {
 
   return (
     <div className="page-admin">
+      <Head>
+        <title>About the Company | United Medi-Care Inc.</title>
+      </Head>
       <h2>About the Company</h2>
       <div className="row-about">
         {

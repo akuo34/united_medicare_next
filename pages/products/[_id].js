@@ -1,30 +1,16 @@
-import Router, { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-// import Axios from 'axios';
+import Router from 'next/router';
+import { useState } from 'react';
 import Slider from 'react-slick';
+import Head from 'next/head';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import model from '../../database/model.js';
 
 const ProductDetails = (props) => {
 
-  // const [product, setProduct] = useState(null);
   const [index, setIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [animation, setAnimation] = useState('modal-hidden');
-  // const router = useRouter();
-  // const { _id } = router.query;
-
-  // useEffect(() => {
-  //   if (_id) {
-  //     Axios
-  //       .get(`/api/products/${_id}`)
-  //       .then(response => {
-  //         setProduct(response.data);
-  //       })
-  //       .catch(err => console.error(err));
-  //   }
-  // }, [_id])
 
   const modalHandler = (e) => {
     if (showModal) {
@@ -59,6 +45,9 @@ const ProductDetails = (props) => {
 
   return (
     <div className="page-admin">
+      <Head>
+        <title>Product Details | United Medi-Care Inc.</title>
+      </Head>
       <div onClick={modalHandler} className={animation === "active" ? "modal active" : `modal ${animation}`} >
         <img onClick={modalHandler} className={animation === "active" ? "modal-image active" : `modal-image ${animation}`} src={props.product && props.product.images.length ? props.product.images[index].fireBaseUrl : '/placeholder-image.png'} alt="modal_image" />
         <div className={animation === "active" ? "modal-background" : `modal-background ${animation}`}></div>

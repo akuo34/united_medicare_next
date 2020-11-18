@@ -1,6 +1,7 @@
 import model from '../database/model.js';
 import { useState } from 'react';
 import Axios from 'axios';
+import Head from 'next/head';
 
 const Contact = (props) => {
 
@@ -35,6 +36,9 @@ const Contact = (props) => {
 
   return (
     <div className="page-admin">
+      <Head>
+        <title>Contact Us | United Medi-Care Inc.</title>
+      </Head>
       <h2>Contact Us</h2>
       <div className="row-contact">
         {
