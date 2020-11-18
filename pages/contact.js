@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
+// import React, { useState } from 'react';
+// import Axios from 'axios';
+import model from '../database/model.js';
 
-const Contact = () => {
-  const [about, setAbout] = useState([]);
+const Contact = (props) => {
+  // const [about, setAbout] = useState([]);
 
-  useEffect(() => {
-    Axios
-      .get('/api/about')
-      .then(response => setAbout(response.data))
-      .catch(err => console.error(err));
-  }, [])
+  // useEffect(() => {
+  //   Axios
+  //     .get('/api/about')
+  //     .then(response => setAbout(response.data))
+  //     .catch(err => console.error(err));
+  // }, [])
 
   return (
     <div className="page-admin">
       <h2>Contact Us</h2>
       {
-        about.length ?
+        props.about ?
         <div className="container-contact">
           <img className="icon-contact" src="./phone_icon.svg" alt="phone" />
-          <span>{"(" + about[0].phone.substr(0, 3) + ") " + about[0].phone.substr(4)}</span>
+          <span>{"(" + props.about.phone.substr(0, 3) + ") " + props.about.phone.substr(4)}</span>
           <img className="icon-contact" src="./email_icon.svg" alt="email" />
-          <span>{about[0].email}</span>
+          <span>{props.about.email}</span>
         </div> : null
       }
     </div>
@@ -28,3 +29,22 @@ const Contact = () => {
 }
 
 export default Contact;
+
+export async function getStaticProps() {
+  let response = await model.getAbout();
+
+  if (response.length) {
+    return {
+      props: {
+        about: JSON.parse(JSON.stringify(response[0]))
+      },
+      revalidate: 10
+    }
+  } else {
+    return {
+      props: {
+
+      }
+    }
+  }
+}

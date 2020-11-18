@@ -354,11 +354,6 @@ p {
   width: min(450px, 90vw);
 }
 
-/* .slider .slick-list .slick-track .slick-slide {
-  display: flex;
-  align-items: center;
-} */
-
 .slider .slick-track .slick-slide {
   display: flex;
   align-items: center;
@@ -565,7 +560,6 @@ p {
   }
 
   .paragraph-about {
-    /* width: min(450px, 90vw); */
     width: 90vw;
     flex-wrap: wrap;
   }
