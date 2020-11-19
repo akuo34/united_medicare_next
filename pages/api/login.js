@@ -3,8 +3,28 @@ import bcrypt from 'bcrypt';
 import { sign, verify } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
+import Cors from 'cors';
+
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD']
+})
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
 
 export default async (req, res) => {
+
+  await runMiddleware(req, res, cors);
+  
   if (req.method === 'POST') {
     const { username, password } = req.body;
     const response = await model.getAdmin(username);
