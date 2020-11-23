@@ -223,11 +223,17 @@ p {
   margin: 0 auto calc(20px + 1vw) auto;
 }
 
+.button-products-submit {
+  justify-self: flex-end;
+  margin: 0 0 40px auto;
+  height: 21px;
+}
+
 .input-products {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
-  width: 80%;
   margin: 0 auto 20px auto;
+  height: 22px;
 }
 
 .row-products {
@@ -244,6 +250,12 @@ p {
   justify-content: space-evenly;
   margin-bottom: 40px;
 } 
+
+.container-image-manager {
+  display: flex;
+  flex-direction: column;
+  width: min(90vw, 300px);
+}
 
 .container-image-products {
   width: min(90vw, 300px);
@@ -263,7 +275,8 @@ p {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
-  width: calc(50vw + 280px - 15vh);
+  /* width: calc(50vw + 280px - 15vh); */
+  width: 60vw;
   justify-content: space-evenly;
 }
 
@@ -346,6 +359,11 @@ p {
   object-fit: contain;
   margin: 0 0 10px 0;
   cursor: pointer;
+}
+
+.input-add-image {
+  margin-bottom: 10px;
+  width: 70%;
 }
 
 .slider {
@@ -434,7 +452,7 @@ p {
 .row-contact {
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 90vw;
   flex-wrap: wrap;
 }
 
@@ -443,9 +461,9 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: min(90vw, 300px);
+  width: min(90vw, 250px);
   background-color: rgb(236, 234, 234);
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   padding-bottom: 20px;
 }
 
@@ -507,9 +525,24 @@ p {
   visibility: hidden;
 }
 
+.flex-end-horizontal {
+  justify-self: flex-end;
+  margin: 0 0 0 auto;
+}
+
+.form-edit-photos {
+  max-width: min(90vw, 300px);
+}
+
+.button-edit-photos {
+  margin-bottom: 10px;
+  height: 21px;
+}
+
 /* For small devices */
 
-@media only screen and (max-device-width: 600px) {
+/* @media only screen and (max-device-width: 600px) { */
+  @media only screen and (max-device-width: 1023px) {
 /* @media only screen and (max-device-width: 823px) { */
 
   .container-links {
@@ -558,8 +591,6 @@ p {
   }
 
   .container-details {
-    display: flex;
-    flex-wrap: wrap;
     width: 90vw;
   }
 
@@ -596,18 +627,27 @@ p {
     flex-wrap: wrap;
     line-height: 26px;
   }
-}
-
-@media only screen and (max-device-width: 731px) {
 
   .row-products {
-    display: flex;
     flex-wrap: wrap;
-    width: 95%;
-    justify-content: center;
-    margin-bottom: 40px;
-  } 
+  }
 
+  .form-edit-photos {
+    width: 90vw;
+  }
+  
+
+  /* .form-admin {
+    padding-bottom: 30px;
+  } */
+
+  .button-edit-photos {
+    margin-bottom: 10px;
+    height: auto;
+  }
+  /* .button-products-submit {
+    margin-bottom: 40px;
+  } */
 }
 
 @media only screen and (min-device-width: 1450px) {
@@ -726,4 +766,107 @@ p {
     height: calc(50px + 1vw);
     font-size: calc(12px + 1vw);
   }
+
+  .container-login {
+    margin-top: 30vh;
+    width: 25vw;
+    height: 25vh;
+  }
+
+  h4 {
+    font-size: calc(12px + 1vw);
+    margin: 40px auto 40px auto;
+  }
+
+  .input-login {
+    font-size: calc(10px + 1vw);
+    margin: 20px auto;
+  }
+
+  .button-login {
+    font-size: calc(6px + 1vw);
+    margin: 20px auto 0 auto;
+  }
+
+  .form-admin {
+    width: 45vw;
+    padding-bottom: 10px;
+  }
+
+  .input-products {
+    font-size: calc(12px + 1vw);
+    margin-bottom: 40px;
+    height: calc(20px + 1vw);
+  }
+
+  .input-file {
+    font-size: calc(12px + 1vw);
+    width: 50%;
+  }
+
+  .button-products-submit {
+    height: calc(24px + 1vw);
+    font-size: calc(10px + 1vw);
+  }
+
+  .header-login {
+    font-size: calc(12px + 1vw);
+    margin: 0px auto 20px auto;
+  }
+
+  #selector-category {
+    margin-bottom: calc(20px + 1vw);
+    outline: none;
+    width: 15vw;
+    font-size: calc(12px + 1vw);
+  }
+
+  .container-image-manager {
+    width: 25%;
+  }
+
+  .container-image-products {
+    width: 100%;
+    height: 400px;
+  }
+
+  .button-edit-photos {
+    height: calc(18px + 1vw);
+    font-size: calc(2px + 0.8vw);
+    margin-bottom: 10px;
+  }
+
+  .form-edit-photos {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .text-small {
+    font-size: calc(2px + 0.8vw);
+  }
+
+  .container-details {
+    width: 65vw;
+  }
+
+  .details-products {
+    width: 30vw;
+  }
+
+  p {
+    font-size: calc(12px + 1vw);
+  }
+
+  .input-edit-product {
+    font-size: calc(12px + 1vw);
+  }
+
+  .paragraph-about-admin {
+    width: 100%;
+  }
+
+  .column-about-admin {
+    width: 40%;
+  }
+
 }

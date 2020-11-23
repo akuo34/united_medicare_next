@@ -228,16 +228,17 @@ const AboutManager = (props) => {
               Object.keys(about).length === 0 ?
                 <form id="form-about" className="form-admin" onSubmit={handleFireBaseUpload}>
                   <h4>Create new profile</h4>
-                  <textarea className="input-products" name="about" placeholder="About" style={{ "height": "100px" }} />
-                  <input className="input-products" type="email" name="email" placeholder="johndorian123@gmail.com"></input>
-                  <input className="input-products" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
+                  <textarea className="input-products" name="about" placeholder="About" style={{ "height": "calc(30px + 8vw)", "width": "80%" }} />
+                  <input className="input-products" type="email" name="email" placeholder="johndorian123@gmail.com" style={{ "width": "80%" }}></input>
+                  <input className="input-products" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX" style={{ "width": "80%" }}></input>
                   <div className="input-products row" style={{ "flexWrap": "wrap" }}>
                     <input
+                      className="input-file"
                       style={{ "marginBottom": "10px" }}
                       type="file"
                       onChange={handleImageAsFile}
                     />
-                    <button style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Upload Photo</button>
+                    <button className="button-products-submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Upload Photo</button>
                   </div>
                 </form>
                 :
@@ -248,35 +249,36 @@ const AboutManager = (props) => {
                     </div>
                     <form id="form-about-add-photo" onSubmit={addPhoto} className="row">
                       <input
+                        className="button-edit-photos"
                         style={{ "marginBottom": "10px", "width": "70%" }}
                         type="file"
                         onChange={handleImageAsFile}
                       />
-                      <button type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto", "height": "21px" }}>Add Photo</button>
+                      <button className="button-edit-photos" type="submit" style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Add Photo</button>
                     </form>
                     <div className="row" style={{ "marginBottom": "20px" }}>
-                      <button onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
-                      <button onClick={nextPhoto}>Next</button>
-                      <span style={{ "justifySelf": "center", "margin": "0 auto" }}>{about.images.length ? (index + 1) + '/' + about.images.length + ' images' : '0/0 images'}</span>
+                      <button className="button-edit-photos" onClick={previousPhoto} style={{ "marginRight": "10px" }}>Previous</button>
+                      <button className="button-edit-photos" onClick={nextPhoto}>Next</button>
+                      <span className="text-small" style={{ "justifySelf": "center", "margin": "0 auto" }}>{about.images.length ? (index + 1) + '/' + about.images.length + ' images' : '0/0 images'}</span>
                       {
                         about.images.length ?
-                          <button onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
+                          <button className="button-edit-photos" onClick={deletePhoto} style={{ "justifySelf": "flexEnd", "margin": "0 0 0 auto" }}>Delete</button> : null
                       }
                     </div>
                   </div>
-                  <div className="column">
+                  <div className="column column-about-admin">
                     <p className="paragraph-about-admin">
                       <b>About: </b>{about.about}
                     </p>
-                    <p><b>Email: </b>{about.email}</p>
-                    <p><b>Phone: </b>{about.phone}</p>
-                    <form id="form-about-edit" onSubmit={editAboutHandler} style={{ "display": "flex", "flexDirection": "column" }}>
-                      <textarea style={{ "marginBottom": "10px", "height": "100px", "fontFamily": "Arial" }} name="about" placeholder="About" />
-                      <input style={{ "marginBottom": "10px" }} type="email" name="email" placeholder="johndorian123@gmail.com"></input>
-                      <input style={{ "marginBottom": "10px" }} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
-                      <button style={{ "margin": "0 0 10px auto", "alignSelf": "flexEnd" }} type="submit">Submit Changes</button>
+                    <p className="paragraph-about-admin"><b>Email: </b>{about.email}</p>
+                    <p className="paragraph-about-admin"><b>Phone: </b>{about.phone}</p>
+                    <form className="paragraph-about-admin column" id="form-about-edit" onSubmit={editAboutHandler} style={{ "display": "flex", "flexDirection": "column" }}>
+                      <textarea className="input-products" style={{ "marginBottom": "10px", "fontFamily": "Arial", "height": "calc(30px + 8vw)", "width": "100%" }} name="about" placeholder="About" />
+                      <input className="input-products" style={{ "alignSelf": "flex-start", "margin": "0 auto 10px 0", "width": "100%" }} type="email" name="email" placeholder="johndorian123@gmail.com"></input>
+                      <input className="input-products" style={{ "alignSelf": "flex-start", "margin": "0 auto 10px 0", "width": "100%" }} type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="XXX-XXX-XXXX"></input>
+                      <button className="button-edit-photos" style={{ "margin": "0 0 10px auto", "alignSelf": "flexEnd" }} type="submit">Submit Changes</button>
                     </form>
-                    <button style={{ "margin": "0 0 20px auto" }} onClick={deleteHandler}>Delete</button>
+                    <button className="button-edit-photos" style={{ "margin": "0 0 20px auto" }} onClick={deleteHandler}>Delete</button>
                   </div>
                 </div>
             }
