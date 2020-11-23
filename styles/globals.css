@@ -656,13 +656,14 @@ p {
 
   .product-grid {
     width: 15%;
-    height: 25vh;
+    /* height: 25vh; */
   }
 
   .image-grid {
     max-width: 100%;
     width: 100%;
     max-height: 19vh;
+    height: 19vh;
     object-fit: contain;
   }
 
