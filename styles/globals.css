@@ -393,7 +393,8 @@ p {
 }
 
 .product-header-price {
-  width: min(90vw, 320px);
+  /* width: min(90vw, 320px); */
+  width: 100%;
   margin: 0 auto 10px 0;
   flex-wrap: wrap;
 }
@@ -595,9 +596,9 @@ p {
     width: 90vw;
   }
 
-  .product-header-price {
+  /* .product-header-price {
     width: min(90vw, 400px);
-  }
+  } */
 
   .product-name {
     margin: auto auto auto 0;
