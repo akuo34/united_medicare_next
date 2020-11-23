@@ -395,6 +395,7 @@ p {
 .product-header-price {
   width: min(90vw, 320px);
   margin: 0 auto 10px 0;
+  flex-wrap: wrap;
 }
 
 .product-name {
