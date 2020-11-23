@@ -305,6 +305,7 @@ p {
 .paragraph-about {
   width: min(450px, 90vw);
   flex-wrap: wrap;
+  line-height: 26px;
 }
 
 .paragraph-about-admin {
@@ -461,6 +462,16 @@ p {
   margin: 0 auto;
 }
 
+.header-contact {
+  margin: 20px auto;
+  font-size: 18px;
+}
+
+.button-contact {
+  height: 25px;
+  font-size: 14px
+}
+
 .input-contact {
   margin: 0 auto 20px auto;
   width: 100%;
@@ -583,6 +594,7 @@ p {
   .paragraph-about {
     width: 90vw;
     flex-wrap: wrap;
+    line-height: 26px;
   }
 }
 
@@ -596,4 +608,121 @@ p {
     margin-bottom: 40px;
   } 
 
+}
+
+@media only screen and (min-device-width: 1450px) {
+
+  
+  .link {
+    font-size: calc(12px + 1vw);
+  }
+  
+  .trademark {
+    margin: 0 0 0 calc(10px + 1.5vw);
+    font-size: calc(16px + 1.5vw);
+    color: white;
+  }
+
+  h2 {
+    font-size: calc(14px + 1.5vw);
+  }
+
+  .column-about {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container-image-about {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+  }
+
+  .image-about {
+   width: 100%;
+  }
+
+  .paragraph-about {
+    width: 40vw;
+    font-size: calc(16px + 1vw);
+    line-height: calc(25px + 1vw);
+  }
+
+  .product-grid {
+    width: 15%;
+    height: 25vh;
+  }
+
+  .image-grid {
+    max-width: 100%;
+    width: 100%;
+    max-height: 19vh;
+    object-fit: cover;
+  }
+
+  .product-name {
+    font-size: calc(12px + 1vw);
+  }
+
+  .button-see-products-fixed {
+    border-radius: 3vh;
+    height: 6vh;
+    width: 12vw;
+    font-size: calc(14px + 1vw);
+  }
+
+  .button-see-products {
+    border-radius: 3vh;
+    height: 6vh;
+    width: 12vw;
+    font-size: calc(14px + 1vw);
+  }
+
+  #selector-category-client {
+    top: calc(10vh + 20px);
+    right: 20px;
+    width: 12vw;
+    font-size: calc(12px + 1vw);
+  }
+
+  .container-image-about-admin {
+    height: 40vh;
+    width: 35vw;
+  }
+
+  .container-contact {
+    width: 25%;
+    font-size: calc(14px + 1vw);
+    padding-bottom: 100px;
+    padding-top: 40px;
+  }
+
+  .icon-contact {
+    height: calc(30px + 1.5vw);   
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .form-contact-client {
+    width: 35vw;
+  }
+
+  .header-contact {
+    font-size: calc(16px + 1vw);
+  }
+
+  .input-contact {
+    font-size: calc(14px + 1vw);
+  }
+
+  .button-contact {
+    height: calc(50px + 1vw);
+    font-size: calc(12px + 1vw);
+  }
 }

@@ -60,12 +60,12 @@ const Contact = (props) => {
         }
         <div style={{ "margin": "0 auto", "display": "flex", "flexDirection": "column" }}>
           <form id="form-contact-client" className="form-contact-client" onSubmit={submitForm}>
-            <h4 style={{ "margin": "20px auto", "fontSize": "18px" }}>Send us an email</h4>
+            <h4 className="header-contact">Send us an email</h4>
             <input required className="input-contact" name="name" placeholder="Your name"></input>
             <input required className="input-contact" name="email" type="email" placeholder="Your email"></input>
             <input required className="input-contact" name="subject" placeholder="Subject"></input>
-            <textarea required className="input-contact" style={{ "height": "80px" }} name="message" placeholder="Your message"></textarea>
-            <button style={{ "height": "25px", "fontSize": "14px" }} type="submit">Send message</button>
+            <textarea required className="input-contact" style={{ "height": "calc(70px + 2vw)" }} name="message" placeholder="Your message"></textarea>
+            <button className="button-contact" type="submit">Send message</button>
           </form>
           <h4 style={{ "margin": "20px auto", "fontSize": "16px", "transition": "all 0.35s ease", "height": "16px" }} className={animation}>{response}</h4>
         </div>

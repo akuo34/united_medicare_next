@@ -27,7 +27,7 @@ export default function Home(props) {
         }
         {
           props.about && props.about.about ?
-            <p className="paragraph-about" style={{ "lineHeight": "26px" }}>
+            <p className="paragraph-about">
               {props.about.about}
             </p> : null
         }
