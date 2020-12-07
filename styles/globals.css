@@ -463,10 +463,11 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: min(90vw, 250px);
   background-color: rgb(236, 234, 234);
   margin: 0 auto 20px auto;
   padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .icon-contact {
@@ -740,10 +741,13 @@ p {
   }
 
   .container-contact {
-    width: 25%;
+    /* width: 25%; */
+    width: auto;
     font-size: calc(14px + 1vw);
     padding-bottom: 100px;
     padding-top: 40px;
+    padding-left: 60px;
+    padding-right: 60px;
   }
 
   .icon-contact {
