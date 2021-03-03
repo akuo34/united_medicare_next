@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Link from 'next/link'
+import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import { AuthProvider } from '../contexts/auth';
 
@@ -35,6 +36,10 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <div>
+      <Head>
+        <title>United Medi-Care Inc.</title>
+        <meta name="Description" content="United Medi-Care, Inc. was founded in 1989 as a wholesale distributor of emergency medical supplies and equipment to EMS providers, first responders, EMTs, and paramedics to include fire departments, hospitals, governmental agencies, schools, CPR instructors, as well as businesses. The company was reorganized in 2015 as a partnership entity and reincorporated again in 2020. Since 1989, United Medi-Care, Inc. has been an authorized distributor for many major brands. From everyday disposable items to extensive capital equipment, we offer products across all categories to include training manikins, laryngeal masks, laryngeal tubes, tube holders, resuscitators, CPR breathing barriers, AED, backboards, immobilizers, extrication collars, splints, slings, and tourniquets, wound dressing bandages, uterine manipulators etc. Our PPE categories includes N95 Respirators, Surgical N95 Respirators, Isolation Gowns, KN95 Masks, and Nitrile Gloves. We take pride in offering exceptional products at the most competitive resale prices. United Medi-Care, Inc. has everything you need to prepare yourself for most emergencies. United Medi-Care, Inc. also provides a full spectrum of services to manage our customer’s product sourcing or OEM manufacturing from Asia." />
+      </Head>
       <div className="container-page">
         <div className="toolbar-main">
           <div className="header-company">
